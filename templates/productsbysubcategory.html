@@ -1,0 +1,333 @@
+{% extends "bash1.html" %}
+{% block content %}
+{% load cart %}
+    <body class="shop-listing shop-search-results">
+        
+       
+            
+                <!-- End Collection Banner -->
+
+                <div class="container">
+                    <!-- Search Form -->
+                    <!-- <div class="search-results-form mb-4 pb-4 mt-4 mt-lg-0  border-bottom">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3">
+                                <div class="page-title">
+                                    <h1 class="mb-2 text-center">Results for "clothing"</h1>
+                                    <p class="mb-3 text-center fw-500">21 results found for "clothing"</p>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- End Search Form -->
+
+                    <div class="row">
+                        <!--Sidebar-->
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-3 sidebar sidebar-border filterbar">
+                            <div class="closeFilter d-block d-lg-none"><i class="icon icon an an-times-r"></i></div>
+                            <div class="sidebar_tags">
+                                <form action="#" class="searchForm">
+                                    <div class="input-group pb-10">
+                                        <input type="text" class="form-control" placeholder="Search..." required />                                   
+                                        <button  class="text-dark" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                    </div>
+                                </form>
+                                <!--Categories-->
+                                <div class="sidebar_widget categories filterBox filter-widget">
+                                    <div class="widget-title1"><h2 class="mb-0">Categories</h2></div>
+                                    <div class="widget-content filterDD">
+                                        
+                                        <ul class="clearfix-1 sidebar_categories mb-0">
+                                            {% for i in data.main_category %}
+                                            <li class="lvl-z sub-level-z"><a href="#;" class="site-nav">{{i.name}}</a>
+                                                
+                                                <ul class="sublinks">
+                                                    <li class="level2"><a href="/maincategorywiseview/{{i.sno}}" class="site-nav">all</a>
+                                                    {% for cat in i.category_set.all %}
+                                                    
+                                                    <li class="level2"><a href="/categorywiseview/{{cat.Sno}}" class="site-nav">{{cat.Category_name}}</a></li>
+                                                    {% endfor %}
+                                                </ul>
+                                                
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!--Categories-->
+                                <!--Price Filter-->
+                                {% comment %} <div class="sidebar_widget filterBox filter-widget">
+                                    <div class="widget-title1"><h2 class="mb-0">Price range</h2></div>
+                                    <form action="#" method="post" class="price-filter filterDD">
+                                        <div id="slider-range" class="mt-2"></div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p class="no-margin"><input id="amount" type="text"></p>
+                                            </div>
+                                            <div class="col-6 text-right margin-25px-top">
+                                                <button class="text-black  btn--small rounded" >filter</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div> {% endcomment %}
+                                <div class="sidebar_widget filterBox filter-widget">
+                                    <div class="widget-title1"><h2 class="mb-0">Color</h2></div>
+                                    <div class="filter-color swacth-list filterDD clearfix-1">
+                                        <ul class="clearfix-1">
+                                            {% for i in data.ProductColor %}
+                                            <li><a href ="/products/?color={{i.Sno}}"><span class="swacth-btn medium rounded-circle {{i.Color_name}}"></span><span class="tooltip-label">{{i.Color_name}}</span></a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!--End Color Swatches-->
+                                <!--Size Swatches-->
+                                <div class="sidebar_widget filterBox filter-widget size-swacthes">
+                                    <div class="widget-title1"><h2 class="mb-0">Size</h2></div>
+                                    <div class="filterDD">
+                                        <ul class="clearfix-1 me-5">
+                                            {% for i in data.ProductSize %}
+                                            <li><a href ="/products/?size={{i.Sno}}"><label for="{{i.Size_name}}"><h5>{{i.Size_name}}</h5></label></a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!--End Size Swatches-->
+                                <!--Product type-->
+                              
+                                <!--Availability-->
+                                <div class="sidebar_widget filterBox filter-widget size-swacthes availability">
+                                    <div class="widget-title1"><h2 class="mb-0">Availability</h2></div>
+                                    <div class="filterDD">
+                                        <ul class="clearfix-1 ">
+                                            <form action = "" method= "get">
+                                                <li><input type="radio" id="instock" name="stock" value="True" required><label for="in_stock">In Stock</label></li>
+                                                <li><input type="radio" id="outofstock" name="stock" value="False" required><label for="out_off_stock">Out Of Stock</label><br></li>
+                                               
+                                            <div class="col-6 text-left ">
+                                                <button class="text-black  btn--small rounded" >filter</button>
+                                            </div>
+                                        </form>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!--Banner-->
+                                <div class="sidebar_widget static-banner">
+                                    {% for i in data1 %}
+                                    
+                                    
+                                    <a href="{{i.product_add_link}}"><img src="/media/{{i.PRODUCT_ADD_SLOT_274X366px}}" alt="image"></a>
+
+                                    {% endfor %}
+                                </div>
+                                <!--End Banner-->
+                            </div>
+                        </div>
+                        <!--End Sidebar-->
+
+                        <!--Main Content-->
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-9 main-col">
+                            <!--Active Filters-->
+                            <ul class="active-filters d-flex flex-wrap align-items-center m-0 list-unstyled d-none">
+                                <li><a href="#">Clear all</a></li>
+                                <li><a href="#">Men <i class="an an-times-l"></i></a></li>
+                                <li><a href="#">Neckalses <i class="an an-times-l"></i></a></li>
+                                <li><a href="#">Accessories <i class="an an-times-l"></i></a></li>
+                            </ul>
+                            <!--End Active Filters-->
+                            <!--Toolbar-->
+                            <div class="toolbar mt-0">
+                                <div class="filters-toolbar-wrapper">
+                                    <ul class="list-unstyled d-flex align-items-center">
+                                        <li class="product-count d-flex align-items-center">
+                                            <button type="button" class="btn btn-filter an an-slider-3 d-flex d-lg-none me-2 me-sm-3"><span class="hidden">Filter</span></button>
+                                            <div class="filters-toolbar__item">
+                                                <div class="filters-toolbar__item collection-view-as d-flex align-items-center me-3">
+                                                    <a href="javascript:void(0)" class="change-view prd-grid change-view--active"><i class="icon an an-th" aria-hidden="true"></i><span class="tooltip-label">Grid View</span></a>
+                                                    <a href="javascript:void(0)" class="change-view prd-list"><i class="icon an an-th-list" aria-hidden="true"></i><span class="tooltip-label">List View</span></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {% comment %} <li class="collection-view mx-sm-auto d-none d-sm-block">
+                                            <span class="filters-toolbar__product-count">Showing: 21 products</span>
+                                        </li> {% endcomment %}
+                                        <li class="filters-sort ms-auto ms-sm-0">
+                                            <div class="filters-toolbar__item">
+                                                <label for="SortBy" class="hidden">Sort by:</label>
+                                                <select name="SortBy" id="SortBy" class="filters-toolbar__input filters-toolbar__input--sort">
+                                                    <option value="featured" selected="selected">Featured</option>
+                                                    <option value="best-selling">Best selling</option>
+                                                    <option value="title-ascending">Alphabetically, A-Z</option>
+                                                    <option value="title-descending">Alphabetically, Z-A</option>
+                                                    <option value="price-ascending">Price, low to high</option>
+                                                    <option value="price-descending">Price, high to low</option>
+                                                    <option value="created-ascending">Date, old to new</option>
+                                                    <option value="created-descending">Date, new to old</option>
+                                                </select>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--End Toolbar-->
+
+                            <!--Product Grid-->
+                            <div class="grid-products grid--view-items prd-grid">
+                                <div class="row">
+                                    {% if subcatview %}
+                                    {% for i in subcatview %}
+                                    
+                                   
+                                    {% if i.active is True %}
+                                    <div class="col-6 col-sm-6 col-md-4 col-lg-4 item">
+                                        <!--Start Product Image-->
+                                        <div class="product-image">
+                                            <!--Start Product Image-->
+                                            <a href="/products/productdetail/{{i.product_slug }}" class="product-img">
+                                                <!-- image -->
+                                                <img class="primary blur-up lazyload" data-src="/media/{{i.Thrumnil}}" src="/static/assets/images/products/product-1.jpg" alt="image" title="">
+                                                <!-- End image -->
+                                                <!-- Hover image -->
+                                                <img class="hover blur-up lazyload" data-src="/media/{{i.Thrumnil2}}" src="/static/assets/images/products/product-1-1.jpg" alt="image" title="">
+                                                <!-- End hover image -->
+                                                {% if i.stock is False %}
+                                                <span class="sold-out"><span class="rounded">Sold out</span></span>
+                                                {% endif %}
+                                            </a>
+                                            <!--End Product Image-->
+
+                                            
+
+                                            <!--Product Button-->
+                                            <div class="button-set style0 d-none d-md-block">
+                                                <ul>
+                                                    <!--Cart Button-->
+                                                    <li>
+                                                      
+                                                         <form method="GET" action="/add_to_cart">
+                                                              <input type="hidden" 
+                                                                class="form-control" name="productid" value ="{{i.id}}">
+                                                            {% if not request.session.customer %}
+                                                            <a class="btn-icon btn cartIcon" href="/login">
+                                                                <i class="icon an an-cart-l"></i>
+                                                            </a> 
+                                                            {% else %}
+                                                            <button class="btn-icon btn cartIcon" type="submit">
+                                                                <i class="icon an an-cart-l"></i><span class="tooltip-label top">add to cart</span>
+                                                            </button>
+                                                            
+                                                            {% endif %}
+                                                            
+                                                        </form>
+                                                        
+                                                    </li>
+                                                    
+                                                </ul>
+                                            </div>
+                                            <!--End Product Button-->  
+                                        </div>
+                                        <!--End Product Image-->
+                                        <!--Start Product Details-->
+                                        <div class="product-details text-center">
+                                            <!--Product Name-->
+                                            <div class="product-name text-uppercase">
+                                                <a href="/products/productdetail/{{i.product_slug}}">{{i.name}}</a>
+                                            </div>
+                                            <!--End Product Name-->
+                                            <!--Product Price-->
+                                            <div class="product-price">
+                                                {% if i.price  is null%}
+                                                
+                                                
+                                                {% else %}
+                                                <span class="old-price">₹​{{i.price}}</span>
+                                                {% endif %}
+                                                <span class="price">₹​{{i.discount_price}}</span>
+                                            </div>
+                                            <!--End Product Price-->
+                                            <!--Product Review-->
+                                            <div class="product-review d-flex align-items-center justify-content-center">
+                                                <i class="an an-star"></i><i class="an an-star"></i><i class="an an-star"></i><i class="an an-star"></i><i class="an an-star-o"></i>
+                                                <span class="caption hidden ms-2">3 reviews</span>
+                                            </div>
+                                            <!--End Product Review-->
+                                            <!--Sort Description-->
+                                            <p class="hidden sort-desc">{{i.product_des|truncatechars:50}}</p>
+                                         
+                                           
+                                            <div class="button-action d-flex">
+                                                <div class="addtocart-btn">
+                                                    {% if not request.session.customer %}
+                                                    <a class="btn-icon btn cartIcon" href="/login">
+                                                        <i class="icon an an-cart-l"></i>
+                                                    </a> 
+                                                    {% else %}
+                                                    <form method="get" action="/add_to_cart"> 
+                                                         <input type="hidden" 
+                                                           class="form-control" name="productid" value ="{{i.id}}" id ="product_id">
+                                                        
+                                                        <button class="btn-icon btn cartIcon" type="submit">
+                                                            <i class="icon an an-cart-l"></i><span class="tooltip-label top">add to cart</span>
+                                                        </button>
+                                                   </form>
+                                                   {% endif %}
+                                                </div>
+                                                
+                                            </div>
+                                            <!-- End Product Button -->
+                                            
+                                        </div>
+                                        
+                                    
+                                        <!--End Product Details-->
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                                </div>
+                               
+                            </div>
+                            <!--End Product Grid-->
+
+                            <!--Pagination Classic-->
+                            <hr class="clear">
+                            <div class="pagination">
+                                <ul>
+                                    <li class="prev"><a href="#"><i class="icon align-middle an an-caret-left" aria-hidden="true"></i></a></li>
+                                    <li class="active"><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">...</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li class="next"><a href="#"><i class="icon align-middle an an-caret-right" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </div>
+                            <!--End Pagination Classic-->
+                        </div>
+                        <!--End Main Content-->
+                    </div>
+                </div>
+            </div>
+            <!--End Body Container-->
+          {% block js %}
+          <script>
+
+          console.log('working');
+           if(localStorage.getItem('cart') == null)
+            {
+            var cart={};
+                }
+        else{
+            cart= JSON.parse(localstorage.getItem('cart'));
+            }
+        $('.cart').click(function(){
+            console.log('clicked');
+        }) ;
+
+        </script>
+          
+          
+          {% endblock js %}  
+        
+            {% endblock content %}

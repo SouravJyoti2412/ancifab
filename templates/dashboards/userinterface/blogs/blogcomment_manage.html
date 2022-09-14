@@ -1,0 +1,122 @@
+{% include 'dashboards/includes/header.html' %}
+
+<body>
+  
+{% include 'dashboards/includes/navigation.html' %}
+{% include 'dashboards/includes/sidebar.html' %}
+
+      <!-- ========== table components start ========== -->
+      <section class="table-components">
+        <div class="container-fluid">
+          <!-- ========== title-wrapper start ========== -->
+          <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <div class="title mb-30">
+                  <h2>All Blog Comment</h2>
+                </div>
+              </div>
+              <!-- end col -->
+              <div class="col-md-6">
+                <div class="breadcrumb-wrapper mb-30">
+                  <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item">
+                        <a href="/admins/dashboard">Dashboard</a>
+                      </li>
+                      <li class="breadcrumb-item active" aria-current="page">
+                        manage Blog comment
+                      </li>
+                    </ol>
+                  </nav>
+                </div>
+              </div>
+              <!-- end col -->
+            </div>
+            <!-- end row -->
+          </div>
+          <!-- ========== title-wrapper end ========== -->
+
+          <!-- ========== tables-wrapper start ========== -->
+          <div class="tables-wrapper">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card-style mb-30">
+                  <h6 class="mb-10">Blog Detils</h6>
+                  <p class="text-sm mb-20">
+                    
+                  </p>
+                  <div class="table-wrapper table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th><h6>First Name </h6></th>
+                          <th><h6>Last Name </h6></th>
+                          <th><h6>Email</h6></th>
+                          <th><h6>Phone No</h6></th>
+                          <th><h6>Action</h6></th>
+                        </tr>
+                        <!-- end table row-->
+                      </thead>
+                      
+                      <tbody>
+                        {% for customer in customer %}
+                        <tr>
+                          <td class="min-width">
+                            <div class="lead">
+                              <div class="lead-text">
+                                <p>{{customer.firstname}}</p>
+                              </div>
+                              </div>
+                              
+                            </div>
+                          </td>
+                          <td class="min-width">
+                            <p>{{customer.lastname}}</p>
+                          </td>
+                          <td class="min-width">
+                            <p><a href="#0">{{customer.email_id}}</a></p>
+                          </td>
+                          <td class="min-width">
+                            <p>{{customer.number}}</p>
+                          </td>
+                          
+                          <td>
+                            <div class="action">
+                            <form action ="{% url 'Customer_delete_data' customer.id %}" method="post" >
+                              {% csrf_token %}
+                              <button type ="submit" value ="submit" class="text-danger" >
+                                <i class="lni lni-trash-can"></i>
+                              </button>
+                            </form>
+                            </div>
+                            
+                          </td>
+                        </tr>
+                        <!-- end table row -->
+                        {% endfor %}
+                      
+                       
+                       
+                       
+                      </tbody>
+
+                    </table>
+                    <!-- end table -->
+                  </div>
+                </div>
+                <!-- end card -->
+              </div>
+              <!-- end col -->
+            </div>
+            <!-- end row -->
+
+          </div>
+          <!-- ========== tables-wrapper end ========== -->
+        </div>
+        <!-- end container -->
+      </section>
+      <!-- ========== table components end ========== -->
+
+{% include 'dashboards/includes/footer.html' %}
+{% include 'dashboards/includes/scripts.html' %}

@@ -1,0 +1,63 @@
+{% extends "bash.html" %}
+{% block content %}
+  
+ {% load static %}
+
+    <main>
+
+        <!-- breadcrumb-area -->
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumb-content">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb p-2 float-center">
+                                    <li class="breadcrumb-item"><a href="/" title="Home">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Return and refund policy</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- breadcrumb-area-end -->
+
+        <!-- choose-area -->
+        <section class="choose-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="choose-wrap">
+                            <div class="section-title title-style-three mb-30">
+                                
+                                <h1 class="title">Return and refund policy</h1>
+                                <!-- <span class="sub-title">A studio for Innovation</span> -->
+                            </div>
+                        </div>
+                        {% for return_policy in return_policy %}
+                          
+                        
+                        <div class="choose-wrap">
+                            <div class="section-title title-style-three">
+                                
+                                <h4>{{return_policy.title}}</h4>
+                                <!-- <span class="sub-title">A studio for Innovation</span> -->
+                            </div>
+                            <div class="choose-content text-justify">
+                                <p>{{return_policy.content|safe}}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- choose-area-end -->
+
+    </main>
+
+
+  
+{% endblock %}

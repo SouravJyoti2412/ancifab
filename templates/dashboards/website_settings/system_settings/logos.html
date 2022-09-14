@@ -1,0 +1,111 @@
+{% include 'dashboards/includes/header.html' %}
+   
+    {% include 'dashboards/includes/sidebar.html' %}
+    <!-- ======== main-wrapper start =========== -->
+    {% include 'dashboards/includes/navigation.html' %}
+
+      <!-- ========== table components start ========== -->
+<section class="table-components">
+    <div class="container-fluid">
+          {% for message in messages %}
+                    
+                    {% if "upload_unsuccess" in message.tags %}
+                    <div class="alert alert-danger" role="alert">
+                        {{message}}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% for message in messages %}
+                    
+                    {% if "upload_success" in message.tags %}
+                    <div class="alert alert-success" role="alert">
+                        {{message}}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+          <!-- ========== title-wrapper start ========== -->
+          <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+
+             
+             
+              <!-- end col -->
+              
+        <div>
+          
+     
+           <div class="form-elements-wrapper">
+             <div class="row">
+               
+              <!-- end col -->
+              <div class="col-lg-12">
+                <div class="card-style mb-30">
+                  <h6 class="mb-10">Logo Header Image</h6>
+                  
+                  <div class="table-wrapper table-responsive">
+                    <table class="table striped-table">
+                      <thead>
+                        {% for logo in websitelogo %}
+                        <tr>
+                         
+                          <th><h6>Header Image </h6></th>
+                          <th><h6>Footer Image</h6></th>
+                          <th><h6>Action</h6></th>
+                        </tr>
+                        <!-- end table row-->
+                      </thead>
+                      <tbody>
+                       
+                        <tr>
+                          
+                          <td>
+                            <p><img src="/media/{{logo.HeaderLogo}}" alt="logo" width="100" height="auto"></p>
+                          </td>
+                          
+                            <td>
+                              <p><img src="/media/{{logo.footerLogo}}" alt="logo" width="200" height="auto"></p>
+                            </td>
+                          </td>
+                          <td>
+                          <div class="action">
+                            <form action="{% url 'updatelogoField' logo.id %}" method="post">
+                              {% csrf_token %}
+                              <button class="text-warning">
+                                <i>
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                  </svg>
+                                </i>
+                              </button>
+                            </form>
+                            
+                          </div>
+                          </td>
+                        </tr>
+                        {% endfor %}
+                        <!-- end table row -->
+                        
+                        
+                      </tbody>
+                    </table>
+                    <!-- end table -->
+                  </div>
+                </div>
+                <!-- end card -->
+              </div>
+              
+      </div>
+            <!-- end row -->
+    </div>
+          <!-- ========== tables-wrapper end ========== -->
+  </div>
+        
+        <!-- end container -->
+</section>
+      <!-- ========== table components end ========== -->
+    {% include 'dashboards/includes/footer.html'%}
+    <!-- ========= All Javascript files linkup ======== -->
+    {% include 'dashboards/includes/scripts.html' %}
+  </body>
+</html>

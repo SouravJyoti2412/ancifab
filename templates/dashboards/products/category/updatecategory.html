@@ -1,0 +1,81 @@
+{% include 'dashboards/includes/header.html' %}
+   
+    {% include 'dashboards/includes/sidebar.html' %}
+    <!-- ======== main-wrapper start =========== -->
+    {% include 'dashboards/includes/navigation.html' %}
+    {% load placeholder %}
+      <!-- ========== table components start ========== -->
+<section class="table-components">
+    <div class="container-fluid">
+          {% for message in messages %}
+                    
+                    {% if "upload_unsuccess" in message.tags %}
+                    <div class="alert alert-danger" role="alert">
+                        {{message}}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% for message in messages %}
+                    
+                    {% if "upload_success" in message.tags %}
+                    <div class="alert alert-success" role="alert">
+                        {{message}}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+          <!-- ========== title-wrapper start ========== -->
+          <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <div class="title mb-30">
+                  <h2>Product Main Category</h2>
+                </div>
+              </div>
+              <!-- end col -->
+              
+        <div>
+          
+     
+           <div class="form-elements-wrapper">
+             <div class="row">
+               <div class="col-lg-6">
+                <form method="post" action ="" enctype="multipart/form-data">
+                  {% csrf_token %}
+                 <!-- input style start -->
+                  <div class="card-style mb-30">
+                      <h6 class="mb-25 text-center">update Category</h6>
+                   <div class="input-style-1">
+                        <label>update main Category</label>
+                         {{form.maincategory|classes:'form-control'}}
+                   </div>
+                   <!-- end input -->
+                   <div class="input-style-1">
+                        <label>Update Category</label>
+                        {{form.Category_name}}
+                         {% comment %} <span class="icon"> recommended dimensions: 362 X 470px, 100 KB MAX</span> {% endcomment %}
+                   </div>
+                   <!-- end input -->
+                   <div class="input-style-3">
+                         <button type="submit" class="btn btn-primary">save</button>
+                   </div>
+                  </div>
+                 </form>
+           
+          
+              </div>
+              <!-- end col -->
+              
+      </div>
+            <!-- end row -->
+    </div>
+          <!-- ========== tables-wrapper end ========== -->
+  </div>
+        
+        <!-- end container -->
+</section>
+      <!-- ========== table components end ========== -->
+    {% include 'dashboards/includes/footer.html'%}
+    <!-- ========= All Javascript files linkup ======== -->
+    {% include 'dashboards/includes/scripts.html' %}
+  </body>
+</html>

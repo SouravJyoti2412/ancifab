@@ -1,0 +1,233 @@
+{% include 'dashboards/includes/header.html' %}
+   
+    {% include 'dashboards/includes/sidebar.html' %}
+    <!-- ======== main-wrapper start =========== -->
+    {% include 'dashboards/includes/navigation.html' %}
+    <style>
+      .instock{
+        text-transform:uppercase; 
+        font-size:12px ;
+        {% comment %} text-align:right!important; {% endcomment %}
+      }
+    </style>
+      <!-- ========== table components start ========== -->
+<section class="table-components">
+    <div class="container-fluid">
+
+          
+          <!-- ========== messege  devider ========== -->
+          {% for message in messages %}
+                    
+          {% if "Product_update_unsuccess" in message.tags %}
+          <div class="alert alert-danger" role="alert">
+              {{message}}
+          </div>
+          {% endif %}
+          {% endfor %}
+          {% for message in messages %}
+          
+          {% if "Product_update_success" in message.tags %}
+          <div class="alert alert-success" role="alert">
+              {{message}}
+          </div>
+          {% endif %}
+          {% endfor %}
+           <!-- ========== title-wrapper start ========== -->
+          <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <div class="title mb-30">
+                  <h2>recived orders</h2>
+                </div>
+              </div>
+              <!-- end col -->
+              
+        <div>
+          
+          
+     
+           <div class="form-elements-wrapper">
+             <div class="row">
+              
+                <div class="col-sm-3">
+                  <div class="card card-style mb-30 pb-5">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">Placed Orders</h5>
+            
+                      <a href="#" class="btn btn-warning mt-4">{{placeorder_count}}</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="card card-style mb-30 pb-5">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">Shippted Orders</h5>
+                      
+                      <a href="#" class="btn btn-warning mt-4">{{shipped_ordercount}}</a>
+                    </div>
+                  </div>
+                </div> 
+                <div class="col-sm-3">
+                  <div class="card card-style mb-30 pb-5 ">
+                    <div class="card-body text-center ">
+                      <h5 class="card-title"> Out for delivery Order</h5>
+                      
+                      <a href="#" class="btn btn-warning mt-2">{{out_deliverycount}}</a>
+                    </div>
+                  </div>
+                </div> 
+                <div class="col-sm-3">
+                  <div class="card card-style mb-30 pb-5 ">
+                    <div class="card-body text-center ">
+                      <h5 class="card-title">Deliver Product</h5>
+                      
+                      <a href="#" class="btn btn-warning mt-4">{{deliverdorder_count}}</a>
+                    </div>
+                  </div>
+                </div>
+              <!-- end col -->
+              <div class="col-lg-12">
+                <div class="card-style mb-30">
+                  {% comment %} <h6 class="">show  <input type="number" class="" value="5" disabled> entries
+                </h6> {% endcomment %}
+                  <h6 class="mb-10 text-center">Recived Orders</h6>
+                  
+                  <div class="table-wrapper table-responsive">
+                    <table class="table striped-table">
+                      <thead>
+                        <tr>
+                          <th><h6>SL No</h6></th>
+                          <th><h6>Order Id</h6></th>
+                          <th><h6>customer name</h6></th>
+                          
+                          <th><h6>address</h6></th>
+                          <th><h6>Order Details</h6></th>
+                          <th><h6></h6></th>
+                          <th><h6>update status</h6></th>
+                          <th><h6></h6></th>
+                          <th><h6></h6></th>
+                          <th><h6>   Status</h6></th>
+                        </tr>
+                        <!-- end table row-->
+                      </thead>
+                      <tbody>
+                        {% for i in order %}
+                        <tr>
+                            <td>
+                                <p>{{ forloop.counter }}</p>
+                            </td>
+                            <td>
+                              
+                              <p>{{i.order_id}}</p>
+                            </td> 
+                          <td>
+                                <p>{{i.customer}}</p>
+                          </td>  
+                         
+                          <td>
+                            
+                            
+                            <p>customer:<b>{{i.firstname}} {{i.lastname}}</b><br> Street : {{i.Street_adress}}<br> Town:{{i.town}}, <br>
+                              State : {{i.state}} <br>pin:{{i.pincode}}<br>
+                              Ph num:{{i.number}}
+                            </p>
+                          </td>
+                          <td>
+                            <p>
+                            <form action="{% url 'oder_summary' i.id %}" method="post">
+                              {% csrf_token %}
+                              <button type="submit" name="" id="" class="status-btn btn-warning" onMouseOver="this.style.color='blue'"
+                              onMouseOut="this.style.color='black'" >order summary</button>
+                            </form>
+                          </p>
+                            
+                          </td>
+                          <td>
+                            <form action="{% url 'order_shipped' i.id %}" method="post">
+                              {% csrf_token %}
+                              <button type="submit" name="" id="" class="status-btn info-btn" >Shipped</button>
+                            </form>
+                          </td>
+                          <td>
+                            {% if i.shipped is True %}
+
+                            <form action="{% url 'order_out_delivery' i.id %}" method="post">
+                              {% csrf_token %}
+                              <button type="submit" name="" id="" class="status-btn info-btn" style="font-size:11px" >out for Delivery</button>
+                            </form>
+                            {% else %}
+                            <button type="submit" name="" id="" class="status-btn info-btn" style="font-size:11px" onclick="return alert('please click on Shipped first');" >out for Delivery</button>
+                            {% endif %}
+                          </td>
+                          <td>
+                            {% if i.shipped is True and i.out_delivery is True %}
+                            <form action="{% url 'order_deliverd' i.id %}" method="post">
+                              {% csrf_token %}
+                              <button type="submit" name="" id="" class="status-btn info-btn" >Deliverd</button>
+                            </form>
+                            {% elif  i.shipped is True %}
+                            <button type="submit" name="" id="" class="status-btn info-btn" style="font-size:11px" onclick="return alert('please click on Out for delivery');" >Deliverd</button>
+                            {% else %}
+                            <button type="submit" name="" id="" class="status-btn info-btn" style="font-size:11px" onclick="return alert('please click on first shipped');" >Deliverd</button>
+                            {% endif %}
+                          </td>
+                          <td></td>
+                          <td>
+                            {% if i.shipped is True and i.out_delivery and i.deliverd is True %}
+                            <button type="button" name="" id="" class="status-btn active-btn" >Deliverd</button>
+                            {% elif i.shipped is True and i.out_delivery is True %}
+                                 
+                                     <button type="button" name="" id="" class="status-btn active-btn" >Out for delivery</button>
+                               
+                            {% elif i.shipped is True %}
+                                 <button type="button" name="" id="" class="status-btn active-btn" >Shipped</button>
+                                 
+                            {% else %}
+                            <button type="button" name="" id="" class="status-btn active-btn" >Placed</button>
+                            {% endif %}
+                          </td>
+                          
+                         
+                        </tr>
+                        {% endfor %}
+                        <!-- end table row -->
+                        
+                        
+                      </tbody>
+                    </table>
+                    <!-- end table -->
+                  </div>
+                </div>
+                <!-- end card -->
+              </div>
+      </div>
+            <!-- end row -->
+            <nav aria-label="Page navigation example" class="">
+              <ul class="pagination">
+                {% if product.has_previous %}
+                <li class="page-item"><a class="page-link" href="/admins/product_manage/?page={{product.previous_page_number}}">Previous</a></li>
+                {% endif %}
+                 {% for n in allpages %} 
+                <li class="page-item"><a class="page-link" href="/admins/product_manage/?page={{n}}">{{n}}</a></li>
+                {% endfor %} 
+                {% if product.has_next %}
+                <li class="page-item"><a class="page-link" href="/admins/product_manage/?page={{product.next_page_number}}">Next</a></li>
+                {% comment %} {% if product.has_next is none %}
+
+                <li class="page-item"><a class="page-link" href="/admins/product_manage/?page={{lastpage}}">Last</a></li>
+                   {% endif %} {% endcomment %}
+                {% endif %}
+              </ul>
+            </nav>
+    </div>
+          <!-- ========== tables-wrapper end ========== -->
+  </div>
+        
+        <!-- end container -->
+</section>
+      <!-- ========== table components end ========== -->
+    {% include 'dashboards/includes/footer.html'%}
+    <!-- ========= All Javascript files linkup ======== -->
+    {% include 'dashboards/includes/scripts.html' %}
+  </body>
+</html>

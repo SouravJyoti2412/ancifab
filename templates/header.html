@@ -1,0 +1,327 @@
+{% load static %}
+{% load cart %}
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Ancifab</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/animate.min.css">
+    <link rel="stylesheet" href="/static/css/magnific-popup.css">
+    <link rel="stylesheet" href="/static/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/static/css/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="/static/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="/static/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/static/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="/static/css/nice-select.css">
+    <link rel="stylesheet" href="/static/css/jarallax.css">
+    <link rel="stylesheet" href="/static/css/flaticon.css">
+    <link rel="stylesheet" href="/static/css/slick.css">
+    <link rel="stylesheet" href="/static/css/default.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/responsive.css">
+    <link rel="shortcut icon" href="/static/assets/images/favicon.png" />
+    
+
+</head>
+
+<body>
+
+
+    <!-- preloader  -->
+    <!-- <div id="preloader">
+            <div id="ctn-preloader" class="ctn-preloader">
+                <div class="animation-preloader">
+                    <div class="spinner"></div>
+                </div>
+                <div class="loader">
+                    <div class="row">
+                        <div class="col-3 loader-section section-left">
+                            <div class="bg"></div>
+                        </div>
+                        <div class="col-3 loader-section section-left">
+                            <div class="bg"></div>
+                        </div>
+                        <div class="col-3 loader-section section-right">
+                            <div class="bg"></div>
+                        </div>
+                        <div class="col-3 loader-section section-right">
+                            <div class="bg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    <!-- preloader end -->
+
+
+    <!-- Scroll-top -->
+    <button class="scroll-top scroll-to-target" data-target="html">
+        <i class="fas fa-angle-up"></i>
+    </button>
+    <!-- Scroll-top-end-->
+    <header>
+        <section class="header-style-three">
+            <div class="header-top-wrap">
+                <div class="container custom-container-two">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-sm-6">
+                            <div class="header-top-link">
+                                <ul>
+                                    <li><a href="/about">About US</a></li>
+                                    <li><a href="/faq">FAQS</a></li>
+                                    <li><a href="/contact">contact us</a></li>
+                                    <li><a href="/blog">blog</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="header-top-right">
+                                <div class="social-links">
+                                    <ul class="clearfix">
+                                        {% for i in data.social_icon  %}
+                                          
+                                        
+                                        <!-- <li><a href="#"><span class="fab fa-twitter"></span></a></li> -->
+                                        <li><a href='https://{{i.social_icon_link_except_http}}' target="_blank"><span><img src="/media/{{i.social_icon_image}}"alt="{{i.social_icon_name}}"style="max-width:16px;max-height:16px;"></span></a></li>
+                                        <!-- <li><a href="#"><span class="fab fa-pinterest-p"></span></a></li> -->
+                                        <!-- <li><a href="#"><span class="fab fa-instagram"></span></a></li>
+                                        <li><a href="#"><span class="fab fa-youtube"></span></a></li> -->
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="sticky-header" class="main-header menu-area">
+            <div class="container custom-container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mobile-nav-toggler"><i class="fas fa-bars"></i></div>
+                        <div class="menu-wrap">
+                            <nav class="menu-nav show">
+                                <div class="logo d-block d-lg-none">
+                                    {% for i in data.logo %}
+                                    
+                                    
+                                    <a href="/" class="main-logo"><img src="/media/{{i.HeaderLogo}}" alt="Logo"></a>
+                                    <a href="/" class="sticky-logo"><img src="/media/{{i.HeaderLogo}}" alt="Logo"></a>
+                                            {% endfor %}
+                                </div>
+                                <div class="header-category d-none d-lg-block">
+                                    {% for i in data.logo %}
+                                    <!-- <a href="/" class="main-logo"><img src="/static/img/logo/w_logo.png" alt="Logo"></a> -->
+                                    <a href="/" class="sticky-logo"><img src="/media/{{i.HeaderLogo}}" alt=""></a>
+                                    {% endfor %}
+                                </div>
+                                <div class="navbar-wrap main-menu d-none d-lg-flex">
+                                    <ul class="navigation">
+                                        <li class="active"><a href="/">Home</a></li>
+                                        {% for i in data.main_category %}
+                                        <li class="menu-item-has-children"><a href="/products/?maincategory={{i.slug}}">{{i.name}}</a>
+                                             <ul class="submenu">
+                                                    {% for cat in i.category.all %}
+                                                    <li class="mega-title1"><a href="/products/?category={{cat.slug}}">{{cat.Category_name}}</a>
+                                                       {% for subcat in cat.subcategory.all %}
+                                                        <li><a href="/products/?subcategory={{subcat.slug}}">{{subcat.Sub_Category_name}}</a></li>
+
+                                                        {% endfor %}
+                                                    </li>
+                                                    {% endfor %}
+                                                    
+                                            </ul>
+                                        </li>
+                                        {% endfor %}
+
+                                    
+
+                                    </ul>
+                                </div>
+                                <div class="header-action d-none d-md-block">
+                                    <ul>
+                                        {% comment %} <li class="header-search"><div class="collapse fade " id="searchForm">
+                                            <input id="search" type="search" class="form-control border-0 bg-light" placeholder="search" />
+                                            </div>
+                                        </li> {% endcomment %}
+                                        <li class="header-search">
+                                          <a href="#searchForm" data-toggle="collapse" data-target="#searchForm"><i class="flaticon-search-interface-symbol"></i></a></li>
+                                            <li class="sign-in header-shop-cart"><a><i class="flaticon-user"></i></a>
+                                            <ul class="minicart1">
+
+                                                <li>
+                                                    <div class="register_link">
+                                                        {% if not request.session.customer %}
+                                                        <ul>
+                                                            <li> <a href="/login">sign in</a></li>
+                                                            <li><a href="/register">register</a></li>
+                                                        </ul>
+                                                        {% else %}
+                                                        <ul>
+                                                            <li><a href="#">hi {{customer_name}} </a></li>
+                                                            
+                                                            <li><a href="/orderstatus">orders</a></li>
+                                                            <li><a href="/profile">profile</a></li>
+                                                            <li><a href="/logout">logout</a></li>
+                                                        </ul>
+                                                        {% endif %}
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        {% if not request.session.customer %}
+                                        <li class="header-shop-cart"><a href="#"><i
+                                            class="flaticon-shopping-bag"></i><span>0</span></a>
+                                            <ul class="minicart">
+                                                <li class="d-flex align-items-start">
+                                                    <div class="d-flex align-items-start "><h6 class="text-center text-danger">you are not login now <a href="/login"><b>please login</b></a><h6></div>
+                                                <li>
+                                            </ul>
+                                        </li>
+                                        {% else %}
+                                        
+                                                {% comment %} {% if not request.session.cart %}
+                                                <li class="header-shop-cart"><a href="#"><i
+                                                    class="flaticon-shopping-bag"></i><span>0</span></a>
+                                                    <ul class="minicart">
+                                                        <li class="d-flex align-items-start">
+                                                            <div class="d-flex align-items-center "><h6 class="text-center">your cart is  empty</div>
+                                                        <li>
+                                                    </ul>
+                                                </li>
+                                                {% else %} {% endcomment %}
+
+                                                <li class="header-shop-cart"><a href="/cart"><i
+                                                    class="flaticon-shopping-bag"></i><span>{{cart.count}}</span></a>
+                                                    <ul class="minicart">
+                                                {% if cart.count is 0 %}
+                                                
+                                                    
+                                                        <div class="d-flex align-items-start "><h6 class="text-center">you don't have any product in your cart<h6></div>
+                                                    
+                                                
+                                                {% else %}
+                                                {% for i in cart %}
+                                                <li class="d-flex align-items-start">
+                                                    <div class="cart-img">
+                                                        <a href="#"><img src="/media/{{i.cartProduct.Thrumnil}}" alt=""></a>
+                                                    </div>
+                                                    <div class="cart-content">
+                                                        <h4><a href="#">{{i.name}}</a></h4>
+                                                        {% if i.cartProduct.discount is False %}
+                                                        <div class="cart-price">
+                                                            <span class="new">₹​{{i.cartProduct.discount_price}}x {{i.quantity}}</span>
+                                                            {% comment %} <p>₹​{{}}<p> {% endcomment %}
+                                                        </div>
+                                                        {% else %}
+                                                        <div class="cart-price">
+                                                            <span ><del>₹​{{i.cartProduct.discount_price}}</del>
+                                                            <span class="new">₹{{i.cartProduct.price}}</span>x {{i.quantity}}</span>
+                                                            {% comment %} <p>₹​{{}}<p> {% endcomment %}
+                                                        </div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="del-icon">
+                                                        <form action="  {% url 'cart_delete' i.id %}  " method ="post">
+                                                            {% csrf_token %}
+    
+                                                        <button class="text-danger" style="margin-left:-1rem;border:none;" type="submit">
+                                                            <i class="far fa-trash-alt"></i>
+                                                        </button>
+                                                    </form>
+                                                        {% comment %} <a href="#"><i class="far fa-trash-alt"></i></a> {% endcomment %}
+                                                    </div>
+                                                </li>
+                                                {% endfor %}
+                                                
+
+                                                
+                                                <li>
+                                                    <div class="total-price">
+                                                        <span class="f-left">Total with gst and shipping charge:</span>
+                                                        <span class="f-right">​₹{{total|floatformat:2}}</span>
+                                                    </div>
+                                                </li>
+                                                
+                                                <li>
+                                                    <div class="checkout-link">
+                                                        <a href="/cart">Shopping Cart</a>
+                                                        <a class="black-color" href="/checkout">Checkout</a>
+                                                    </div>
+                                                </li>
+                                                {% endif %}
+                                                {% comment %} {% endif %} {% endcomment %}
+                                            </ul>
+                                           
+                                        </li>
+                                       
+                                        {% endif %} 
+                                        <!-- <a href="#" class="navSidebar-button"><img src="/static/img/icon/sidebar_toggle_icon.png" alt=""></a></li> -->
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                        <!-- Mobile Menu  -->
+                        <div class="mobile-menu">
+                            <div class="close-btn"><i class="flaticon-targeting-cross"></i></div>
+                            <nav class="menu-box">
+                                <!-- <div class="nav-logo"><a href="/"><img src="/static/img/logo/logo.png" alt=""
+                                            title=""></a>
+                                </div> -->
+                                <div class="menu-outer">
+                                    <ul class="navigation">
+                                        <li class="active"><a href="/">Home</a></li>
+                                        {% for i in data.main_category %}
+                                        <li class="menu-item-has-children"><a href="/products/?maincat={{i.sno}}">{{i.name}}</a>
+                                            <ul class="submenu">
+                                                {% for cat in i.category.all %}
+                                                <li><a href="/products/?cat={{cat.Sno}}">{{cat.Category_name}}</a></li>
+                                               {% endfor %}
+                                            </ul>
+                                        </li>
+                                        {% endfor %}
+                                        <li class=""><a href="/blog">blog</a>
+                                            
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                        <div class="menu-backdrop"></div>
+                        <!-- End Mobile Menu -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Search -->
+        <!-- <div class="modal fade" id="search-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form>
+                        <input type="text" placeholder="Search here...">
+                        <button><i class="flaticon-search"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div> -->
+        <!-- Modal Search-end -->
+
+
+    </header>
+    <!-- header-area-end -->

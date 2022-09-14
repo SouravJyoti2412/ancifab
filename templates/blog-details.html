@@ -1,0 +1,307 @@
+{% extends "bash.html" %}
+{% block content %}
+{% load static %}
+{% load humanize %}
+{% load  extras %}
+        <!-- main-area -->
+        <main>
+
+            <!-- breadcrumb-area -->
+            {% for message in messages %}
+                    
+            {% if "comment_success " in message.tags %}
+            <div class="alert alert-success" role="alert">
+                {{message}}
+            </div>
+            {% endif %}
+            {% endfor %}
+            <section class="breadcrumb-area breadcrumb-bg" data-background="/static/img/bg/breadcrumb_bg03.jpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="breadcrumb-content">
+                                <div class="tag"><a href="#">{{blogdetail.category}}</a></div>
+                                <h3 class="title">{{blogdetail.Blog_title}}</h3>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="/blog">blog</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">{{blogdetail.Blog_title}}</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- breadcrumb-area-end -->
+
+            <!-- blog-area -->
+            <section class="blog-details-area pt-100 pb-100">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="blog--post--item blog-details-content">
+                                <div class="blog-post-thumb mb-25"><img src="/media/{{blogdetail.Blog_banner_Image}}" alt=""></div>
+                                <div class="blog-post-content">
+                                    <div class="blog-post-meta">
+                                        <ul>
+                                            <li><i class="far fa-user"></i>By <a href="#">{{blogdetail.author}}</a></li>
+                                            <li><i class="far fa-calendar-alt"></i> {{blogdetail.created_at}}</li>
+                                            {% comment %} <li><i class="far fa-comments"></i> 0 Comments</li> {% endcomment %}
+                                        </ul>
+                                    </div>
+                                    <p></p>
+                                    <h4 class="title">{{blogdetail.Blog_title}}</h4>
+                                    {{blogdetail.content|safe}}
+                                    <div class="blog-details-img-wrap">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="blog-details-img">
+                                                    <img src="/media/{{blogdetail.Blog_first_Image}}" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="blog-details-img">
+                                                    <img src="/media/{{blogdetail.Blog_second_Image}}" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="blog-details-meta">
+                                        <div class="blog-bottom-meta">
+                                            <ul>
+                                                <li><i class="far fa-heart"></i><a href="#">0 views</a></li>
+                                                <li><i class="far fa-comment"></i>{{blogcomment.count}} Comments</li>
+                                                {% comment %} <li>
+                                                    <i class="fas fa-tag"></i>
+                                                    <a href="#">Fashion,</a>
+                                                    <a href="#">Lifestyle,</a>
+                                                    <a href="#">Blanding</a>
+                                                </li>  {% endcomment %}
+                                            </ul>
+                                        </div>
+                                        {% comment %} <div class="classic-blog-share">
+                                            <a href="#"><spna><i class="fa fa-share" aria-hidden="true"></i></span><i class="fab fa-facebook-square" style="margin-left:5px"></i></a>
+                                             <a href="#"><i class="fab fa-twitter-square"></i></a>
+                                            <a href="#"><i class="fab fa-pinterest-square"></i></a> 
+                                        </div> {% endcomment %}
+                                    </div>
+                                    {% comment %} <div class="avatar-post mt-50 mb-70">
+                                        <div class="post-avatar-img">
+                                            <img src="/static/img/blog/post_avatar_img.png" alt="img">
+                                        </div>
+                                        <div class="post-avatar-content">
+                                            <h5>Hazal Kaya</h5>
+                                            <p>Here are just a few things to know about online payment systems. ... A merchant account is a bank account
+                                                that allows.</p>
+                                            <div class="post-avatar-social">
+                                                <ul>
+                                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div> 
+                                    </div> {% endcomment %}
+
+                                     <div class="comment-reply-box mb-60">
+                                        <h5 class="b-details-title mb-35">Leave a comment</h5>
+
+                                    {% if not request.session.customer %}
+                                    
+                                      
+                                    <p>If you want to comment please <span><a href="/login">login</a></span></p>
+                                       
+                                    {% else %}
+                                        <form action="{% url 'blog_comment' %}" method="post" class="comment-form">
+                                            {% csrf_token %}
+                                            <textarea name="comment" id="comment-message" placeholder="Your Comment"></textarea>
+                                            <input type="hidden" name= "postSno" value={{blogdetail.id}}>
+                                            <input type="hidden" name= "parentSno" value="">
+                                            <button class="btn" type="Submit">Submit</button>
+                                        </form>
+                                        {% endif %}
+                                    </div>
+                                    <div class="blog-comment mb-60">
+                                        <h5 class="b-details-title mb-35">{{blogcomment.count}} Comments</h5>
+                                        <ul> {% for comment in blogcomment %}
+                                            <li>
+                                                <div class="single-comment">
+                                                    <div class="comment-text">
+                                                        <div class="comment-avatar-info">
+                                                            <h5>{{comment.user }} <span class="comment-date badge badge-secondary text-light">{{comment.Timestamp|naturaltime}}</span></h5>
+                                                        </div>
+                                                        <p>{{ comment.comment}}</p>
+                                                    </div>
+                                                    
+                                                </div>
+                                                {% if not request.session.customer %}
+
+                                                {% else %}
+                                                <div>
+                                                   
+                                                    <button class="comment-reply-link" type="button" data-toggle="collapse" data-target="#reply{{comment.sno}}" aria-expanded="false" aria-controls="collapseExample">
+                                                          Reply
+                                                    </button>
+                                                      
+                                                    <div class="collapse" id="reply{{comment.sno}}">
+                                                        <h5 class="b-details-title mb-35">Leave a reply</h5>
+                                                        <div class="card card-body ">
+                                                            <form action="{% url 'blog_comment' %}" method="post" class="comment-form">
+                                                                {% csrf_token %}
+                                                                <textarea name="comment" id="comment-message" placeholder="Post your reply"></textarea>
+                                                                <input type="hidden" name= "parentSno" value={{comment.sno}}>
+                                                                <input type="hidden" name= "postSno" value={{blogdetail.id}}>
+                                                                
+                                                                <button class="btn" type="Submit">Submit</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                {% endif %}
+                                            </li>
+                                            
+                                            
+                                           
+                                            
+                                            
+                                            {% for reply in replycomment|get_val:comment.sno %}
+
+                                                    <li class="comment-reply">
+                                                        <div class="single-comment">
+                                                            {% comment %} <div class="comment-avatar-img">
+                                                                <img src="/static/img/blog/comment_avatar02.jpg" alt="img">
+                                                            </div> {% endcomment %}
+                                                            <div class="comment-text">
+                                                                <div class="comment-avatar-info">
+                                                                    <h5>{{reply.user}}<span class="comment-date">{{reply.Timestamp|naturaltime}}</span></h5>
+                                                                   
+                                                                </div>
+                                                                <p>{{reply.comment}}</p>
+                                                            </div>
+                                                        </div>
+                                                    </li> 
+                                                    {% endfor %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        {% comment %} <div class="col-lg-4 col-md-8">
+                            <aside class="blog-sidebar">
+                                <div class="widget blog-sidebar-widget mb-45">
+                                    <h5 class="widget-title">ABOUT ME</h5>
+                                    <div class="sidebar-about">
+                                        <div class="thumb"><img src="/static/img/blog/sidebar_about_thumb.jpg" alt=""></div>
+                                        <div class="content">
+                                            <p>The purpose of lorem ipsum is create natural looking block of sentence doesn distract.Letset sheets containing puhing.</p>
+                                            <a href="#">More About Me <i class="fas fa-angle-double-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget blog-sidebar-widget mb-45">
+                                    <div class="oc-newsletter">
+                                        <h4 class="title">NEWSLETTER</h4>
+                                        <p>Fill your email below to subscribe to my newsletter</p>
+                                        <form action="#">
+                                            <input type="email" placeholder="Email...">
+                                            <button class="btn">Subscribe</button>
+                                        </form>
+                                        <div class="oc-social">
+                                            <h4 class="title">FOLLOW US</h4>
+                                            <ul>
+                                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                                <li><a href="#"><i class="fab fa-google"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget blog-sidebar-widget mb-45">
+                                    <h5 class="widget-title">Popular Posts</h5>
+                                    <div class="blog-rc-post">
+                                        <ul>
+                                            <li>
+                                                <div class="rc-post-thumb">
+                                                    <a href="blog-details.html"><img src="/static/img/blog/rc_post_thumb01.jpg" alt=""></a>
+                                                </div>
+                                                <div class="rc-post-content">
+                                                    <h5><a href="blog-details.html">The Greatest Thing World Belong Excepted</a></h5>
+                                                    <span><i class="far fa-calendar"></i> November 14, 2021</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="rc-post-thumb">
+                                                    <a href="blog-details.html"><img src="/static/img/blog/rc_post_thumb02.jpg" alt=""></a>
+                                                </div>
+                                                <div class="rc-post-content">
+                                                    <h5><a href="blog-details.html">Fashion is a Popular Aesthetic Expression Particular</a></h5>
+                                                    <span><i class="far fa-calendar"></i> April 14, 2021</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="rc-post-thumb">
+                                                    <a href="blog-details.html"><img src="/static/img/blog/rc_post_thumb03.jpg" alt=""></a>
+                                                </div>
+                                                <div class="rc-post-content">
+                                                    <h5><a href="blog-details.html">The Greatest Thing World Belong Excepted</a></h5>
+                                                    <span><i class="far fa-calendar"></i> March 28, 2021</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="widget blog-sidebar-widget mb-45">
+                                    <h5 class="widget-title">Categories</h5>
+                                    <div class="blog-cat-list">
+                                        <ul>
+                                            <li><a href="#">Fashion</a>16</li>
+                                            <li><a href="#">Woman</a>17</li>
+                                            <li><a href="#">Lifestyle</a>08</li>
+                                            <li><a href="#">Creative</a>19</li>
+                                            <li><a href="#">Who</a>21</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="widget blog-sidebar-widget mb-45">
+                                    <div class="sidebar-add">
+                                        <a href="#"><img src="/static/img/blog/sidebar_banner.jpg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="widget blog-sidebar-widget">
+                                    <h5 class="widget-title">TAGS POST</h5>
+                                    <div class="blog-sidebar-tag">
+                                        <ul>
+                                            <li><a href="#">Art</a></li>
+                                            <li><a href="#">Branding</a></li>
+                                            <li><a href="#">Colors</a></li>
+                                            <li><a href="#">Who</a></li>
+                                            <li><a href="#">Marketing</a></li>
+                                            <li><a href="#">Creative</a></li>
+                                            <li><a href="#">Business</a></li>
+                                            <li><a href="#">Travel</a></li>
+                                            <li><a href="#">Fashion</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </aside>
+                        </div> {% endcomment %}
+                    </div>
+                </div>
+            </section>
+            <!-- blog-area-end -->
+
+        </main>
+        <!-- main-area-end -->
+
+        
+          
+        {% endblock%}

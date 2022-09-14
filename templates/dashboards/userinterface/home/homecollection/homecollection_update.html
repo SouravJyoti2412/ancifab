@@ -1,0 +1,367 @@
+{% include 'dashboards/includes/header.html' %}
+   
+    {% include 'dashboards/includes/sidebar.html' %}
+    <!-- ======== main-wrapper start =========== -->
+    {% include 'dashboards/includes/navigation.html' %}
+
+      <!-- ========== table components start ========== -->
+      <section class="table-components">
+        <div class="container-fluid">
+          {% comment %} {% for message in messages %}
+                    
+                  {% if "update_unsuccess" in message.tags %}
+                  <div class="alert alert-danger" role="alert">
+                      {{message}}
+                  </div>
+                  {% endif %}
+                  {% endfor %} {% endcomment %}
+          <!-- ========== title-wrapper start ========== -->
+          <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <div class="title mb-30">
+                  <h2>update home collection details</h2>
+                </div>
+              </div>
+              <!-- end col -->
+        <div>
+          <form action ="" method ="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3 text-start input-style-1">
+              <label for="recipient-name" class="col-form-label">IMAGE BIG LEFT (870X800px) :</label>
+             {{form.IMAGE_BIG_LEFT_870X800px}}
+             <span style=" font-size:11px"> recommended dimensions: 870 X 800 PX, 150 KB MAX</span>
+             <br>
+
+             <span class ="text-danger" id ="error_image"></span>
+            </div>
+            
+            <div class="mb-3 text-start input-style-1">
+              <label for="message-text" class="col-form-label">IMAGE SMALL FIRST (425X390px):</label>
+              {{form.IMAGE_SMALL_FIRST_425X390px}}
+              <span style=" font-size:11px">recommended dimensions: 425 X 390 PX, 150 KB MAX</span>
+              <br>
+             <span class ="text-danger" id ="error_image1"></span>
+            </div>
+            <div class="mb-3 text-start input-style-1">
+              <label for="message-text" class="col-form-label">HEADING OF SMALL FIRST IMAGE:</label>
+              {{form.HEADING_OF_SMALL_FIRST_IMAGE}}
+      
+            </div>
+            <div class="mb-3 text-start input-style-1">
+              <label for="message-text" class="col-form-label">BUTTON LINK OF SMALL FIRST IMAGE:</label>
+              {{form.BUTTON_LINK_OF_SMALL_FIRST_IMAGE}}
+      
+            </div>
+           
+           
+           
+            <div class="mb-3 text-start input-style-1">
+              <label for="message-text" class="col-form-label">IMAGE SMALL SECOND (425X390px):</label>
+              {{form.IMAGE_SMALL_SECOND_425X390px}}
+              <span style=" font-size:11px">recommended dimensions: 425 X 390 PX, 150 KB MAX</span>
+              <br>
+             <span class ="text-danger" id ="error_image2"></span>
+      
+              <div class="mb-3 text-start input-style-1">
+                <label for="message-text" class="col-form-label">HEADING OF SMALL SECOND IMAGE:</label>
+                {{form.HEADING_OF_SMALL_SECOND_IMAGE}}
+        
+              </div>
+              <div class="mb-3 text-start input-style-1">
+                <label for="message-text" class="col-form-label">BUTTON LINK OF SMALL SECOND IMAGE:</label>
+                {{form.BUTTON_LINK_OF_SMALL_SECOND_IMAGE}}
+                
+        
+              </div>
+           
+            <div class="mb-3 text-start input-style-1">
+              <label for="message-text" class="col-form-label">IMAGE RIGHT DOWN (870X390px) :</label>
+              {{form.IMAGE_RIGHT_DOWN_870X390px}}
+              <span style=" font-size:11px">recommended dimensions: 870 X 390 PX, 150 KB MAX</span>
+              <br>
+             <span class ="text-danger" id ="error_image3"></span>
+             
+            </div>
+            <div class="mb-3 text-start input-style-1">
+              <label for="message-text" class="col-form-label">HEADING OF RIGHT DOWN IMAGE:</label>
+              {{form.HEADING_OF_RIGHT_DOWN_IMAGE}}
+      
+            </div>
+           
+            <div class="mb-3 text-start input-style-1">
+              <label for="message-text" class="col-form-label">BUTTON LINK OF IMAGE RIGHT DOWN:</label>
+              {{form.BUTTON_LINK_OF_IMAGE_RIGHT_DOWN}}
+      
+            </div>
+           
+            <div class="mb-3 text-start input-style-1">
+              <label for="message-text" class="col-form-label">MIDDLE SIDE IMAGE (1920X1080px):</label>
+              {{form.MIDDLE_SIDE_IMAGE_1920X1080px}}
+              <span style=" font-size:11px">recommended dimensions: 1920 X 1080 PX, 150 KB MAX</span>
+              <br>
+              <span class ="text-danger" id ="error_image4"></span>
+            </div><div class="mb-3 text-start input-style-1">
+              <label for="message-text" class="col-form-label">HEADING OF MIDDLE SIDE IMAGE:</label>
+              {{form.HEADING_OF_MIDDLE_SIDE_IMAGE}}
+      
+            </div>
+           
+            <div class="mb-3 text-start input-style-1">
+              <label for="message-text" class="col-form-label">BUTTON LINK OF MIDDLE SIDE IMAGE:</label>
+              {{form.BUTTON_LINK_OF_MIDDLE_SIDE_IMAGE}}
+      
+            </div>
+           
+          
+            
+            <div class="modal-footer">
+          
+            <button type="submit" id = "submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+           
+             </div>
+              </div>
+              <!-- end col -->
+            </div>
+            <!-- end row -->
+          </div>
+          <!-- ========== tables-wrapper end ========== -->
+        </div>
+        <!-- end container -->
+      </section>
+      <!-- ========== table components end ========== -->
+
+      <!-- ========== footer start =========== -->
+      <footer class="footer">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6 order-last order-md-first">
+              <div class="copyright text-center text-md-start">
+                <p class="text-sm">
+                  Designed and Developed by
+                  <a
+                    href="https://plainadmin.com"
+                    rel="nofollow"
+                    target="_blank"
+                  >
+                    PlainAdmin
+                  </a>
+                </p>
+              </div>
+            </div>
+            <!-- end col-->
+            <div class="col-md-6">
+              <div
+                class="
+                  terms
+                  d-flex
+                  justify-content-center justify-content-md-end
+                "
+              >
+                <a href="#0" class="text-sm">Term & Conditions</a>
+                <a href="#0" class="text-sm ml-15">Privacy & Policy</a>
+              </div>
+            </div>
+          </div>
+          <!-- end row -->
+        </div>
+        <!-- end container -->
+      </footer>
+      <!-- ========== footer end =========== -->
+    </main>
+    <!-- ======== main-wrapper end =========== -->
+
+    <!-- ========= All Javascript files linkup ======== -->
+    {% include 'dashboards/includes/scripts.html' %}
+
+  </body>
+</html>
+<script>
+  $(document).ready(function(){
+
+    var _URL = window.URL || window.webkitURL;
+
+    $('#id_IMAGE_BIG_LEFT_870X800px').change(function () {
+           var file = $(this)[0].files[0];
+           var a=(this.files[0].size);
+           img = new Image();
+           var imgwidth = 0;
+           var imgheight = 0;var maxwidth = 870;var maxheight = 800;
+           img.src = _URL.createObjectURL(file);
+           img.onload = function() {
+                  imgwidth = this.width;
+                  imgheight = this.height;
+ 
+                  $("#width").text(imgwidth);
+                  $("#height").text(imgheight);
+                  if(imgwidth != maxwidth && imgheight != maxheight){
+                    $('#submit').attr('disabled',true);
+                    $("#error_image").text("Image size must be "+maxwidth+"X"+maxheight);
+                  }
+                  else if(a > (100*1024)) {
+                    $('#submit').attr('disabled',true);
+                    $("#error_image").text("* Image max Size is 150 kb ");  
+                  }
+                  else{
+                    $('#submit').attr('disabled',false);
+                    $("#error_image").text("");
+                  }
+           };
+           img.onerror = function() {
+ 
+                 $("#error_image").text("not a valid file: " + file.type);
+            }
+
+     });
+});
+$(document).ready(function(){
+
+  var _URL = window.URL || window.webkitURL;
+
+  $('#id_IMAGE_SMALL_FIRST_425X390px').change(function () {
+         var file = $(this)[0].files[0];
+         var a=(this.files[0].size);
+         img = new Image();
+         var imgwidth = 0;
+         var imgheight = 0;var maxwidth = 425;var maxheight = 390;
+         img.src = _URL.createObjectURL(file);
+         img.onload = function() {
+                imgwidth = this.width;
+                imgheight = this.height;
+
+                $("#width").text(imgwidth);
+                $("#height").text(imgheight);
+                if(imgwidth != maxwidth && imgheight != maxheight){
+                  $('#submit').attr('disabled',true);
+                  $("#error_image1").text("Image size must be "+maxwidth+"X"+maxheight);
+                }
+                else if(a > (100*1024)) {
+                  $('#submit').attr('disabled',true);
+                  $("#error_image1").text("* Image max Size is 150 kb ");  
+                }
+                else{
+                  $('#submit').attr('disabled',false);
+                  $("#error_image1").text("");
+                }
+         };
+         img.onerror = function() {
+
+               $("#error_image1").text("not a valid file: " + file.type);
+          }
+
+   });
+});
+$(document).ready(function(){
+
+  var _URL = window.URL || window.webkitURL;
+
+  $('#id_IMAGE_SMALL_SECOND_425X390px').change(function () {
+         var file = $(this)[0].files[0];
+         var a=(this.files[0].size);
+         img = new Image();
+         var imgwidth = 0;
+         var imgheight = 0;var maxwidth = 425;var maxheight = 390;
+         img.src = _URL.createObjectURL(file);
+         img.onload = function() {
+                imgwidth = this.width;
+                imgheight = this.height;
+
+                $("#width").text(imgwidth);
+                $("#height").text(imgheight);
+                if(imgwidth != maxwidth && imgheight != maxheight){
+                  $('#submit').attr('disabled',true);
+                  $("#error_image2").text("Image size must be "+maxwidth+"X"+maxheight);
+                }
+                else if(a > (100*1024)) {
+                  $('#submit').attr('disabled',true);
+                  $("#error_image2").text("* Image max Size is 150 kb ");  
+                }
+                else{
+                  $('#submit').attr('disabled',false);
+                  $("#error_image2").text("");
+                }
+         };
+         img.onerror = function() {
+
+               $("#error_image2").text("not a valid file: " + file.type);
+          }
+
+   });
+});
+$(document).ready(function(){
+
+  var _URL = window.URL || window.webkitURL;
+
+  $('#id_IMAGE_RIGHT_DOWN_870X390px').change(function () {
+         var file = $(this)[0].files[0];
+         var a=(this.files[0].size);
+         img = new Image();
+         var imgwidth = 0;
+         var imgheight = 0;var maxwidth = 870;var maxheight = 390;
+         img.src = _URL.createObjectURL(file);
+         img.onload = function() {
+                imgwidth = this.width;
+                imgheight = this.height;
+
+                $("#width").text(imgwidth);
+                $("#height").text(imgheight);
+                if(imgwidth != maxwidth && imgheight != maxheight){
+                  $('#submit').attr('disabled',true);
+                  $("#error_image3").text("Image size must be "+maxwidth+"X"+maxheight);
+                }
+                else if(a > (100*1024)) {
+                  $('#submit').attr('disabled',true);
+                  $("#error_image3").text("* Image max Size is 150 kb ");  
+                }
+                else{
+                  $('#submit').attr('disabled',false);
+                  $("#error_image3").text("");
+                }
+         };
+         img.onerror = function() {
+
+               $("#error_image3").text("not a valid file: " + file.type);
+          }
+
+   });
+});
+$(document).ready(function(){
+
+  var _URL = window.URL || window.webkitURL;
+
+  $('#id_MIDDLE_SIDE_IMAGE_1920X1080px').change(function () {
+         var file = $(this)[0].files[0];
+         var a=(this.files[0].size);
+         img = new Image();
+         var imgwidth = 0;
+         var imgheight = 0;var maxwidth = 1920;var maxheight =1080;
+         img.src = _URL.createObjectURL(file);
+         img.onload = function() {
+                imgwidth = this.width;
+                imgheight = this.height;
+
+                $("#width").text(imgwidth);
+                $("#height").text(imgheight);
+                if(imgwidth != maxwidth && imgheight != maxheight){
+                  $('#submit').attr('disabled',true);
+                  $("#error_image4").text("Image size must be "+maxwidth+"X"+maxheight);
+                }
+                else if(a > (100*1024)) {
+                  $('#submit').attr('disabled',true);
+                  $("#error_image4").text("* Image max Size is 150 kb ");  
+                }
+                else{
+                  $('#submit').attr('disabled',false);
+                  $("#error_image4").text("");
+                }
+         };
+         img.onerror = function() {
+
+               $("#error_image4").text("not a valid file: " + file.type);
+          }
+
+   });
+});
+</script>

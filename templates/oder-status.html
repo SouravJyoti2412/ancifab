@@ -1,0 +1,375 @@
+
+{% extends "bash.html" %}
+{% block content %}
+  {% load static %}
+
+<main>
+    <!-- breadcrumb-area -->
+      <section class="breadcrumb-area breadcrumb-bg" data-background="/static/img/silk-saree.jpg" alt="Ancifab">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="breadcrumb-content">
+                <h2>My Profile</h2>
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/" title="Home">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/profile" title="My Profile">My Profile</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">My Orders</li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    <!-- breadcrumb-area-end -->
+    
+    <!-- cart-area -->
+      <div class="cart-area pt-100 pb-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+                    
+            <!-- Payment Message -->
+                    <!-- /Payment Message -->
+    
+              <div class="card">
+                <div class="card-header text-center section-title title-style-three"><h1 class="title">Order Status </h1></div>
+                  <div class="card-body">
+                    <div class="card-header">
+                      <div class="row">
+                        <div class="col-md-12">
+                                       
+                          <div class="row">
+                            <div class="col-12">
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>View Product Summary</th>
+                                  <th>shipping charge</th>
+                                  <th>Gst</th>
+                                  <th>Total amount</th>
+                                  <th>payment status</th>
+                                  <th>Order Date</th>
+                                  <th class="invisible">Cancel</th>
+                                </tr>
+                              </thead>
+                              {% for i in order %}
+                              <tbody>
+                                
+                                  <tr>
+                                  <td>
+                                    <form action="{% url 'view_order_summary' i.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-secondary">view order Product</button>
+                                    </form>
+                                  </td>
+                                  <td><i class="fas fa-rupee-sign"></i>{{i.shipping|floatformat:2}}</td>
+                                  <td><i class="fas fa-rupee-sign"></i>{{i.gst|floatformat:2}}</td>
+                                  <td><i class="fas fa-rupee-sign"></i>{{i.total|floatformat:2}}</td>
+                                  {% if i.paid is False %}
+                                  <td>Unpaid</td>
+                                  {% else %}
+                                  <td>Paid</td>
+                                  {% endif %}
+                                  <td>{{i.date}}</td>
+                                  <td>
+                                    {% if i.deliverd is True %}
+
+                                    <button type="submit" name="" id="" class="btn-light pl-4 pr-5" >Deliverd</button>
+                                    {% else %}
+                                    <form action="/order-tracking/{{i.order_id}}" method="post">
+                                      {% csrf_token %}
+                                    <button type="submit" name="" id="" class="btn-light pr-4 pl-3" >tracking order</button>
+                                    </form>
+                                    {% endif %}
+                                  </td>
+                                  <td>
+                                    {% if i.deliverd is True %}
+                                    <button type="button" class="btn-danger" data-toggle="modal" data-target="#cancelbutton2">Request to Return</button>
+                                    <div class="modal fade" id="cancelbutton2" tabindex="-1" aria-labelledby="cancelbuttonLabel" aria-hidden="true">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Fill the form</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                              <form action="{% url 'returnorders' %}" method="POST" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="id" value="{{i.id}}">
+                                                <input type="hidden" name="emailid" value="{{i.emailid}}">
+                                                <input type="hidden" name="firstname" value="{{i.firstname}}">
+                                                <input type="hidden" name="lastname" value="{{i.lastname}}">
+                                                <input type="hidden" name="paid" value="{{i.paid}}">
+                                                <input type="hidden" name="gst" value="{{i.gst}}">
+                                                <input type="hidden" name="total" value="{{i.total}}">
+                                                <input type="hidden" name="shipping" value="{{i.shipping}}">
+                                                <input type="hidden" name="order_id" value="{{i.order_id}}">
+                                                <input type="hidden" name="payment_mood" value="{{i.payment_mood}}">
+                                                <input type="hidden" name="address" value="
+                                                  {{i.Street_adress}},
+                                                  {{i.town}},
+                                                  {{i.state}},
+                                                  {{i.pincode}},
+                                                  Ph no : {{i.number}}">
+                                                <div class="form-group">
+                                                  <label for="message-text" class="col-form-label">Write reason For return(250 word) </label>
+                                                  <textarea class="form-control" name ="reson_cancel" required ="" minlength="10" id="message-text"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                  <label for="message-text" class="col-form-label">Upload Product Image</label>
+                                                  <div>
+                                                    <input type="file" class="form-control-sm" name ="productimage">
+                                                    <small id="helpId" class="form-text text-muted">Image size should be in 100 kb</small>
+                                                  </div>
+                                                  
+                                                </div>
+
+                                                <div class="form-group">
+                                                <label for="message-text" class="col-form-label">Enter Bank details for get payment Your acccount</label>
+                                                <textarea class="form-control" name ="bank_details" required ="" minlength="20" id="message-text"></textarea>
+                                                </div>
+                                             
+                                                <div class="modal-footer">
+                                                
+                                                  <button type="submit" name="cancel"  onclick="return confirm('Are You Sure?');" class="btn-danger">Return Order</button>
+                                                </div>
+                                             
+                                              </form>
+                                          </div>
+                                          
+                                        </div>
+                                      </div>
+                                    </div>
+                                    
+                                    {% else %}
+                                    
+
+                                    {% if i.paid is False %}
+                                    <button type="button" class="btn-danger" data-toggle="modal" data-target="#cancelbutton1">Request to Cancel</button>
+                                    <div class="modal fade" id="cancelbutton1" tabindex="-1" aria-labelledby="cancelbuttonLabel" aria-hidden="true">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Fill the form</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                              <form action="{% url 'cancelorderlist' %}" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="id" value="{{i.id}}">
+                                                <input type="hidden" name="emailid" value="{{i.emailid}}">
+                                                <input type="hidden" name="firstname" value="{{i.firstname}}">
+                                                <input type="hidden" name="lastname" value="{{i.lastname}}">
+                                                <input type="hidden" name="paid" value="{{i.paid}}">
+                                                <input type="hidden" name="gst" value="{{i.gst}}">
+                                                <input type="hidden" name="total" value="{{i.total}}">
+                                                <input type="hidden" name="shipping" value="{{i.shipping}}">
+                                                <input type="hidden" name="order_id" value="{{i.order_id}}">
+                                                <input type="hidden" name="payment_mood" value="{{i.payment_mood}}">
+                                                <input type="hidden" name="bank_details" value="">
+                                                <div class="form-group">
+                                                  <label for="message-text" class="col-form-label">Write reason For cancelation(250 word) </label>
+                                                  <textarea class="form-control" name ="reson_cancel" required ="" minlength="10" id="message-text"></textarea>
+                                                </div>
+                                                <div class="modal-footer">
+                                                
+                                                  <button type="submit" name="cancel"  onclick="return confirm('Are You Sure?');" class="btn-danger">Cancel Order</button>
+                                                </div>
+                                             
+                                              </form>
+                                          </div>
+                                          
+                                        </div>
+                                      </div>
+                                    </div>
+                                  {% else %}
+                                  <button type="button" class="btn-danger" data-toggle="modal" data-target="#cancelbutton">Request to Cancel</button>
+                                  <div class="modal fade" id="cancelbutton" tabindex="-1" aria-labelledby="cancelbuttonLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">Fill the form</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{% url 'cancelorderlist' %}" method="post">
+                                              {% csrf_token %}
+                                              <input type="hidden" name="id" value="{{i.id}}">
+                                              <input type="hidden" name="emailid" value="{{i.emailid}}">
+                                              <input type="hidden" name="firstname" value="{{i.firstname}}">
+                                              <input type="hidden" name="lastname" value="{{i.lastname}}">
+                                              <input type="hidden" name="paid" value="{{i.paid}}">
+                                              <input type="hidden" name="gst" value="{{i.gst}}">
+                                              <input type="hidden" name="total" value="{{i.total}}">
+                                              <input type="hidden" name="shipping" value="{{i.shipping}}">
+                                              <input type="hidden" name="order_id" value="{{i.order_id}}">
+                                              <input type="hidden" name="payment_mood" value="{{i.payment_mood}}">
+                                              <div class="form-group">
+                                                <label for="message-text" class="col-form-label">Enter Bank details for get payment Your acccount</label>
+                                                <textarea class="form-control" name ="bank_details" required ="" minlength="20" id="message-text"></textarea>
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="message-text" class="col-form-label">Write reason For cancelation(250 word) </label>
+                                                <textarea class="form-control" name ="reson_cancel" required ="" minlength="10" id="message-text"></textarea>
+                                              </div>
+                                              <div class="modal-footer">
+                                              
+                                                <button type="submit" name="cancel"  onclick="return confirm('Are You Sure?');" class="btn-danger">Cancel Order</button>
+                                              </div>
+                                           
+                                            </form>
+                                        </div>
+                                        
+                                      </div>
+                                    </div>
+                                  </div>
+                                  
+
+
+                                  {% endif %}
+                                  
+                                  {% endif %}
+                                  </td>
+                                </tr>
+                                                        
+                                </tbody>
+                                {% endfor %}  
+                            </table>
+                            <table class="table table-striped">
+                              <div class="pl-2"><h5 class="title">Return Orders</h5></div>
+                              <thead>
+                                <tr>
+                                  <th>View Product Summary</th>
+                                  <th>shipping charge</th>
+                                  <th>Gst</th>
+                                  <th>Total amount</th>
+                                  <th>payment status</th>
+                                  <th>Order Date</th>
+                                  <th class="invisible">Cancel</th>
+                                </tr>
+                              </thead>
+                              {% for i in returnorder %}
+                              <tbody>
+                                
+                                  <tr>
+                                  <td>
+                                    <form action="{% url 'return_product_summary' i.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-secondary">view return Product</button>
+                                    </form>
+                                  </td>
+                                  <td><i class="fas fa-rupee-sign"></i>{{i.shipping|floatformat:2}}</td>
+                                  <td><i class="fas fa-rupee-sign"></i>{{i.gst|floatformat:2}}</td>
+                                  <td><i class="fas fa-rupee-sign"></i>{{i.total|floatformat:2}}</td>
+                                  {% if i.paid is False %}
+                                  <td>Unpaid</td>
+                                  {% else %}
+                                  <td>Paid</td>
+                                  {% endif %}
+                                  <td>{{i.date}}</td>
+
+                                  <td>
+                                    
+                                    {% if i.payment_confirm is True %}
+
+                                    <button type="submit" name="" id="" class="btn-light pl-4 pr-5" >Payment confirm</button>
+                                    {% else %}
+                                    <form action="/returnordertracking/{{i.order_id}}" method="post">
+                                      {% csrf_token %}
+                                    <button type="submit" name="" id="" class="btn-light pr-4 pl-3" >tracking return order</button>
+                                    </form>
+                                    {% endif %}
+                                  </td>
+                                  <td>
+                                  
+                                  </td>
+                                </tr>
+                                                        
+                                </tbody>
+                                {% endfor %}  
+                            </table>
+                            <table class="table table-striped">
+                              <div class="pl-2"><h5 class="title">Cancel Orders</h5></div>
+                              <thead>
+                                <tr>
+                                  <th>View Product Summary</th>
+                                  <th>shipping charge</th>
+                                  <th>Gst</th>
+                                  <th>Total amount</th>
+                                  <th>payment status</th>
+                                  <th>Order Date</th>
+                                  <th class="invisible">Cancel</th>
+                                </tr>
+                              </thead>
+                              {% for i in cancel_order %}
+                              <tbody>
+                                
+                                  <tr>
+                                  <td>
+                                    <form action="{% url 'cancel_product_summary' i.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-secondary">view cancel Product</button>
+                                    </form>
+                                  </td>
+                                  <td><i class="fas fa-rupee-sign"></i>{{i.shipping|floatformat:2}}</td>
+                                  <td><i class="fas fa-rupee-sign"></i>{{i.gst|floatformat:2}}</td>
+                                  <td><i class="fas fa-rupee-sign"></i>{{i.total|floatformat:2}}</td>
+                                  {% if i.paid is False %}
+                                  <td>Unpaid</td>
+                                  {% else %}
+                                  <td>Paid</td>
+                                  {% endif %}
+                                  <td>{{i.date}}</td>
+
+                                  <td>
+                                    {% if i.paid is True %}
+                                    {% if i.payment_confirm is True %}
+
+                                    <button type="submit" name="" id="" class="btn-light pl-4 pr-5" >Payment confirm</button>
+                                    {% else %}
+                                    <p name="" id="" class="text-success pl-4 pr-5" >wait for payment confirm</p>
+                                    {% endif %}
+                                    {% else %}
+
+                                    {% endif %}
+                                  </td>
+                                  <td>
+                                  
+                                  </td>
+                                </tr>
+                                                        
+                                </tbody>
+                                {% endfor %}  
+                            </table>
+                          </div>
+                        </div>
+                        
+                        <!-- If order is nothing or ==0 then show msg start -->
+                                            <!-- If order is nothing or ==0 then show msg end -->                    
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- cart-area-end -->
+    
+    </main>
+
+
+    
+    <!-- main-area-end -->
+    <!-- footer start -->
+    {% endblock %}

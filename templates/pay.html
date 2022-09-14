@@ -1,0 +1,50 @@
+
+<meta name="viewport" content="width=device-width">
+<!-- This form provided by the payment gated -->
+<form action="https://ancifab.com/payment/success" method="POST">
+    <script
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        data-key="rzp_test_GqNj0D7O9m6C79"  
+        data-amount="295000" 
+        data-currency="INR"
+        data-order_id="order_Jiyz3AtH6SvHi6" 
+        data-buttontext="Pay with Razorpay"
+        data-name="Ancifab"
+        data-description="Ancifab"
+        data-image="assets/img/icon/sidebar_toggle_icon1.png"
+        data-prefill.name="Sourav Jyoti Naskar"
+        data-prefill.email="souravjoyti@gmail.com"
+        data-prefill.contact="9733524316"
+        data-prefill.invoiceid="AF00000005"
+        
+        data-theme.color="#f0a43c"
+    ></script>
+    <input type="hidden" custom="Hidden Element" name="hidden">
+    <input type="hidden" name="invoice_id" value="AF00000005">
+    <input type="hidden" name="fname" value="">
+    <input type="hidden" name="address" value="">
+    <input type="hidden" name="phone" value="">
+    <input type="hidden" name="postal_code" value="">
+    <input type="hidden" name="email" value="">
+    <input type="hidden" name="message" value="">
+    <input type="hidden" name="customer_id" value="">
+    <input type="hidden" name="sub_total" value="">
+    <input type="hidden" name="gst" value="">
+    <input type="hidden" name="shipping" value="0">
+    <input type="hidden" name="invoice_id" value="AF00000005">
+    <input type="hidden" name="coupan_discount" value="0">
+    <input type="hidden" name="total" value="">
+    <input type="hidden" name="user_id" value="">
+</form>
+
+<center>
+    <div><h1>Do not refresh or press back button</h1></div>
+    <h3><a href="https://ancifab.com/payment/failed">Cancel Payment</a></h3>
+</center>
+<script>document.querySelector('.razorpay-payment-button').click();</script>
+<style>
+    .razorpay-payment-button
+    {
+        display: none;
+    }
+</style>

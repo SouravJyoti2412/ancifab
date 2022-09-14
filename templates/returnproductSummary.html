@@ -1,0 +1,160 @@
+
+{% extends "bash.html" %}
+{% block content %}
+  {% load static %}
+
+<main>
+    <!-- breadcrumb-area -->
+      <section class="breadcrumb-area breadcrumb-bg" data-background="/static/img/silk-saree.jpg" alt="Ancifab">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="breadcrumb-content">
+                <h2>My Profile</h2>
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/" title="Home">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/profile" title="My Profile">My Profile</a></li>
+                    <li class="breadcrumb-item"><a href="/orderstatus" title="My Profile">My Orders</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">order preoduct Summary</li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    <!-- breadcrumb-area-end -->
+    
+    <!-- cart-area -->
+      <div class="cart-area pt-100 pb-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+                    
+            <!-- Payment Message -->
+                    <!-- /Payment Message -->
+    
+              <div class="card">
+                <div class="card-header text-center section-title title-style-three"><h1 class="title">return Product Summary </h1></div>
+                  <div class="card-body">
+                    <div class="card-header">
+                      <div class="row">
+                        <div class="col-md-12">
+                                       
+                          <div class="row">
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>Product Image</th>
+                                  <th>Product name</th>
+                                  <th>Product price</th>
+                                  <th>Product size</th>
+                                  <th>Qty</th>
+                                  <th>product subtotal</th>
+                                  <th>shipping</th>
+                                  <th>Gst</th>
+                                  <th>paying amount</th>
+                                </tr>
+                                <!-- end table row-->
+                              </thead>
+                              <tbody>
+                                {% for k in allorderitem %}
+                                <tr>
+                                  <td> 
+                                    <img class="img-thumbnail" src="/media/{{k.image}}" style="width:100px ; height:auto;" alt="">
+                                  </td>
+                                  <td class="min-width"> 
+                                    <p>{{k.product}}</p>  
+                                  </td>
+                                  <td>
+                                    ₹{{k.price}}
+                                  </td>
+                                  <td>
+                                    {% if k.size is None %}
+                                    
+                                    {% else %}
+                                    {{k.size}}
+                                    {% endif %}
+                                   </td>
+                                  <td>
+                                   {{k.quantity}}
+                                  </td>
+                                  <td>
+                                      ₹{{k.producttotal}}
+                                  </td>
+                                  <td>
+
+                                  </td>
+                                  <td >
+                                   
+                                  </td>
+                                  <td >
+                                   
+                                  </td>
+                                </tr>
+                                
+                                
+                                {% endfor %}
+                                <hr>
+                                <tr>
+                                  <td>
+                                    
+                                  </td>
+                                  <td>
+                                     
+                                  </td>
+                                  </td>
+                                  <td >
+                                    
+                                  </td>
+                                  <td>
+                                    
+                                  </td>
+                                  <td>
+                                    <h5><b>Total Paying Bill</b></h5>
+                                  </td>
+                                  <td>
+                                    
+                                  </td>
+                                    <td>
+                                      {% if order.shipping is None %}
+      
+                                      <p>₹ 0.00</p>
+                                      {% else %}
+                                      <p> ₹{{order.shipping|floatformat:2 }}</p>
+                                     {% endif %}
+                                    </td>
+                                    
+                                  <td class="min-width">
+                                    <p> 
+                                      ₹{{order.gst|floatformat:2 }}                                
+                                    </p>
+                                  </td>
+                                    <td class="min-width">
+                                      <p>₹{{order.total|floatformat:2 }}</p>
+                                    </td>
+                                  </td>
+      
+                                </tr>
+                              </tbody>
+                            </table>
+                            
+                        </div>
+                        <!-- If order is nothing or ==0 then show msg start -->
+                                            <!-- If order is nothing or ==0 then show msg end -->                    
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- cart-area-end -->
+    
+    </main>
+    <!-- main-area-end -->
+    <!-- footer start -->
+    {% endblock %}

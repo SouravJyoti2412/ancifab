@@ -1,0 +1,146 @@
+{% include 'dashboards/includes/header.html' %}
+   
+    {% include 'dashboards/includes/sidebar.html' %}
+    <!-- ======== main-wrapper start =========== -->
+    {% include 'dashboards/includes/navigation.html' %}
+
+      <!-- ========== table components start ========== -->
+      <section class="table-components">
+        <div class="container-fluid">
+          {% comment %} {% for message in messages %}
+                    
+                  {% if "update_unsuccess" in message.tags %}
+                  <div class="alert alert-danger" role="alert">
+                      {{message}}
+                  </div>
+                  {% endif %}
+                  {% endfor %} {% endcomment %}
+          <!-- ========== title-wrapper start ========== -->
+          <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <div class="title mb-30">
+                  <h2>advatisment details</h2>
+                </div>
+              </div>
+              <!-- end col -->
+        <div>
+          <form action ="" method ="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3 text-start input-style-1">
+              <label for="message-text" class="col-form-label">Graphgic Image</label>
+              {{form.PRODUCT_ADD_SLOT_274X366px}}
+              <span style=" font-size:11px">recommended dimensions: 274 X 366PX, 150 KB MAX</span>
+              <br>
+              <small class ="text-danger" id ="error_image"></small>
+            </div>
+            <div class="mb-3 text-start input-style-1">
+              <label for="recipient-name" class="col-form-label">banners name :</label>
+             {{form.PRODUCT_ADD_lINK}}
+ 
+            </div>
+            
+            
+          
+            
+            <div class="modal-footer">
+          
+            <button type="submit" id ="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+           
+             </div>
+              </div>
+              <!-- end col -->
+            </div>
+            <!-- end row -->
+          </div>
+          <!-- ========== tables-wrapper end ========== -->
+        </div>
+        <!-- end container -->
+      </section>
+      <!-- ========== table components end ========== -->
+
+      <!-- ========== footer start =========== -->
+      <footer class="footer">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6 order-last order-md-first">
+              <div class="copyright text-center text-md-start">
+                <p class="text-sm">
+                  Designed and Developed by
+                  <a
+                    href="https://plainadmin.com"
+                    rel="nofollow"
+                    target="_blank"
+                  >
+                    PlainAdmin
+                  </a>
+                </p>
+              </div>
+            </div>
+            <!-- end col-->
+            <div class="col-md-6">
+              <div
+                class="
+                  terms
+                  d-flex
+                  justify-content-center justify-content-md-end
+                "
+              >
+                <a href="#0" class="text-sm">Term & Conditions</a>
+                <a href="#0" class="text-sm ml-15">Privacy & Policy</a>
+              </div>
+            </div>
+          </div>
+          <!-- end row -->
+        </div>
+        <!-- end container -->
+      </footer>
+      <!-- ========== footer end =========== -->
+    </main>
+    <!-- ======== main-wrapper end =========== -->
+
+    <!-- ========= All Javascript files linkup ======== -->
+    {% include 'dashboards/includes/scripts.html' %}
+  </body>
+</html>
+<script>
+  $(document).ready(function(){
+
+    var _URL = window.URL || window.webkitURL;
+  
+    $('#id_PRODUCT_ADD_SLOT_274X366px').change(function () {
+           var file = $(this)[0].files[0];
+           var a=(this.files[0].size);
+           img = new Image();
+           var imgwidth = 0;
+           var imgheight = 0;var maxwidth = 274;var maxheight = 366;
+           img.src = _URL.createObjectURL(file);
+           img.onload = function() {
+                  imgwidth = this.width;
+                  imgheight = this.height;
+  
+                  $("#width").text(imgwidth);
+                  $("#height").text(imgheight);
+                  if(imgwidth != maxwidth && imgheight != maxheight){
+                    $('#submit').attr('disabled',true);
+                    $("#error_image").text("Image size must be "+maxwidth+"X"+maxheight);
+                  }
+                  else if(a > (100*1024)) {
+                    $('#submit').attr('disabled',true);
+                    $("#error_image2").text("* Image max Size is 150 kb ");  
+                  }
+                  else{
+                    $('#submit').attr('disabled',false);
+                    $("#error_image2").text("");
+                  }
+           };
+           img.onerror = function() {
+  
+                 $("#error_image2").text("not a valid file: " + file.type);
+            }
+  
+     });
+  });
+</script>

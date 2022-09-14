@@ -1,0 +1,95 @@
+{% extends "bash.html" %}
+{% block content %}
+  {% load static %}
+    <!-- main-area -->
+<main>
+
+    <!-- breadcrumb-area -->
+    <section class="banner">
+        <img src="https://ancifab.com/assets/img/banner/silk-saree.jpg" class="img-fluid" alt="Ancifab">
+    </section>
+    <!-- breadcrumb-area-end -->
+
+    <!-- cart-area -->
+    <div class="cart-area pt-80 pb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 pb-4">
+                    <p class="text-center">Your time is valuable. And so is your money. We have two options for payment to ease your purchase. Choose to transfer online or pay on delivery. Whatever works for you is good for us.</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="card payment-box">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <p>This method is hassle free and also helps us.</p>
+                                <form action="/onlinepayment/" method="post" class="text-center payment-form">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="order_id" value="{{order_id}}">
+                                    <input type="hidden" name="fname" value="{{fname}}">
+                                    <input type="hidden" name="lname" value="{{lname}}">
+                                    <input type="hidden" name="cname" value="{{cname}}">
+                                    <input type="hidden" name="country" value="{{country}}">
+                                    <input type="hidden" name="Street_adress" value="{{Street_adress}}">
+                                    <input type="hidden" name="town" value="{{town}}">
+                                    <input type="hidden" name="state" value="{{state}}">
+                                    <input type="hidden" name="phone" value="{{phone}}">
+                                    <input type="hidden" name="pincode" value="{{pincode}}">
+                                    <input type="hidden" name="email" value="{{email}}">
+                                    <input type="hidden" name="customer_id" value="{{customer_id}}">
+                                    <input type="hidden" name="order_id" value="{{order_id}}"> 
+                                    <input type="hidden" name="sub_total" value="">
+                                    <input type="hidden" name="gst" value="{{gst}}">
+                                    <input type="hidden" name="shipping" value="{{shipping}}">
+                                    <input type="hidden" name="quanty" value="{{quanty}}">
+                                    <input type="hidden" name="total" value="{{total}}">
+                                    <input type="hidden" name="number" value="{{number}}">
+    
+                                    <div class="form-group perched-info">
+                                        <button type="submit" class="btn" name="online_transfer">Online Transfer</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card payment-box">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <p>So you can make a stress-free purchase.</p>
+                                <form action="/cashpayment/" method="post" class="text-center payment-form">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="bill_no" value="">
+                                    <input type="hidden" name="fname" value="{{fname}}">
+                                    <input type="hidden" name="lname" value="{{lname}}">
+                                    <input type="hidden" name="cname" value="{{cname}}">
+                                    <input type="hidden" name="country" value="{{country}}">
+                                    <input type="hidden" name="Street_adress" value="{{Street_adress}}">
+                                    <input type="hidden" name="town" value="{{town}}">
+                                    <input type="hidden" name="state" value="{{state}}">
+                                    <input type="hidden" name="phone" value="{{phone}}">
+                                    <input type="hidden" name="pincode" value="{{pincode}}">
+                                    <input type="hidden" name="email" value="{{email}}">
+                                    <input type="hidden" name="customer_id" value="{{customer_id}}">
+                                     <input type="hidden" name="order_id" value="{{order_id}}"> 
+                                    <input type="hidden" name="sub_total" value="">
+                                    <input type="hidden" name="gst" value="{{gst}}">
+                                    <input type="hidden" name="shipping" value="{{shipping}}">
+                                    <input type="hidden" name="quanty" value="{{quanty}}">
+                                    <input type="hidden" name="total" value="{{total}}">
+                                    <input type="hidden" name="number" value="{{number}}">
+    
+                                    <div class="form-group perched-info">
+                                        <button type="submit" class="btn" name="online_transfer">Cash on delivery</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- cart-area-end -->
+
+    {% endblock content %}

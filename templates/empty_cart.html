@@ -1,0 +1,43 @@
+{% extends "bash.html" %}
+{% block content %}
+  
+ {% load static %}
+ 
+
+        <!-- main-area -->
+        <main>
+
+            <!-- breadcrumb-area -->
+            {% for i in cart_banner %}
+              
+            
+            <section class="breadcrumb-area breadcrumb-bg" data-background="/media/{{i.Banner_Image}}">
+                {% endfor %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="breadcrumb-content">
+                                <h2>Cart Page</h2>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class= "container fluid text-center p-5">
+            <h6>your cart is empty<h6>
+
+            </div>
+           
+            
+            
+        </main>
+        <!-- main-area-end -->
+
+
+        {% endblock content %}

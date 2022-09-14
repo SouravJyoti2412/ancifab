@@ -1,0 +1,190 @@
+{% extends 'bash.html' %}
+{% block content %}
+{% load static %}
+       <!-- main-area -->
+       <main>
+<style>
+    .padding{
+        padding-right:4.3rem;
+       
+    }
+    .padding span .sub-title{
+        text-align:center;
+    }
+</style>
+        <!-- breadcrumb-area -->
+        {% for i in contact_banner %}
+        <section class="breadcrumb-area breadcrumb-bg" data-background="/media/{{i.Banner_Image}}" alt="Ancifab Contact Image">
+            {% endfor %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumb-content">
+                            <h2>Contact Us</h2>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/" title="Home">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Contact</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- breadcrumb-area-end -->
+
+        <!-- contact-area -->
+        <section class="contact-area pt-100 pb-100">
+            <div class="container">
+                {% for message in messages %}
+                {% if "genarel_success" in message.tags %}
+                <div class="alert alert-success" role="alert">
+                    {{message}}
+                </div>
+                {% endif %}
+                
+                {% endfor %}
+                {% for message in messages %}
+                {% if "Product_success" in message.tags %}
+                <div class="alert alert-success" role="alert">
+                    {{message}}
+                </div>
+                {% endif %}
+                
+                {% endfor %}
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="contact-wrap">
+                          
+                            <div class="accordion" id="accordionExample">
+                                <div class="card">
+                                 <div class="row">
+                                    <div class="col-md-4 col-sm-12">
+                                  <div class="header" id="headingOne"  >
+                                      <button class="btn btn-dark collapsed padding" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <span class="sub-title">General Query</span>
+                                        
+                                      </button>
+                                  </div>
+                                </div>
+                                  <div class="col-md-4 col-sm-12">
+                                  <div class="header " id="headingTwo" >
+                                      <button class="btn btn-dark collapsed" style="" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <span class="sub-title">Query for Product</span>
+                                      </button>
+                                  </div>
+                                </div>
+                                </div>
+                                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <form action="{% url 'generalquery' %}" method="post" class="contact-form">
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <h4 id="contactForm_result" class="text-success"></h4>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="name" placeholder="Your Name *" required="">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="email" name="email" placeholder="Your Email *" required="">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="number" name="phone" placeholder="Your Phone" pattern="[0-9]{10}" required="">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="subject" placeholder="Subject" required="">
+                                                </div>
+                                            </div>
+                                            <textarea name="message" placeholder="Your Message" required=""></textarea>
+                                            <button type="submit" name="contact" class="btn">Submit</button>
+                                        </form> 
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card">
+                                  
+                                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <form action="{% url 'productquery' %}" method="post" class="contact-form">
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <h4 id="contactForm_result" class="text-success"></h4>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="name" placeholder="Your Name *" required="">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="email" name="email" placeholder="Your Email *" required="">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="number" name="phone" placeholder="Enter your ph number"  pattern="[0-9]{10}" required="">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="p_name" placeholder="enter product name" required="">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="p_code" placeholder="enter product code">
+                                                </div>
+                                            </div>
+                                            <textarea name="message" placeholder="Your Message" required=""></textarea>
+                                            <button type="submit" name="contact" class="btn">Submit</button>
+                                        </form> 
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                              </div>
+
+
+
+
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-7">
+                        <aside class="contact-sidebar">
+                            {% for i in contact_section %}
+                              
+                            
+                            <div class="widget">
+                                <div class="contact-sidebar-img mb-20">
+                                    <img src="/media/{{i.side_image_375X230}}" alt="Contact Image">
+                                </div>
+                            </div>
+                            <div class="widget">
+                                <div class="contact-info-wrap">
+                                    <ul>
+                                        <li>
+                                            <div class="icon"><i class="flaticon-phone-call"></i></div>
+                                            <div class="content">
+                                                <h5>Phone</h5>
+                                                <p><a href="tel:{{i.phone}}">{{i.phone}}</a></p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="icon"><i class="flaticon-email"></i></div>
+                                            <div class="content">
+                                                <h5>Email</h5>
+                                                <p><a href="mailto:{{i.email}}">{{i.email}}</a></p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="icon"><i class="flaticon-place"></i></div>
+                                            <div class="content">
+                                                <h5>Address</h5>
+                                                <p>{{i.address}}</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </aside>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- contact-area-end -->
+
+    </main>
+    <!-- main-area-end -->
+    {% endblock  %}

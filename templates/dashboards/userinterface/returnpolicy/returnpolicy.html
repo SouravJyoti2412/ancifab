@@ -1,0 +1,257 @@
+{% include 'dashboards/includes/header.html' %}
+<style>
+  .modal-content {
+  width:175%;
+  margin-left:-10rem;
+}
+</style>
+<body>
+  
+{% include 'dashboards/includes/navigation.html' %}
+{% include 'dashboards/includes/sidebar.html' %}
+
+      <!-- ========== table components start ========== -->
+      <section class="table-components">
+        <div class="container-fluid">
+          <!-- ========== title-wrapper start ========== -->
+          <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <div class="title mb-30">
+                  <h2>return and refund policy</h2>
+                </div>
+              </div>
+              <!-- end col -->
+              <div class="col-md-6">
+                <div class="breadcrumb-wrapper mb-30">
+                  <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item">
+                        <a href="/admins/dashboard">Dashboard</a>
+                      </li>
+                      <li class="breadcrumb-item active" aria-current="page">
+                        Manage return and refund policy details
+                      </li>
+                    </ol>
+                  </nav>
+                </div>
+              </div>
+              <!-- end col -->
+            </div>
+            {% for message in messages %}
+                    
+            {% if "upload_unsuccess" in message.tags %}
+            <div class="alert alert-danger" role="alert">
+                {{message}}
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% for message in messages %}
+            
+            {% if "upload_success" in message.tags %}
+            <div class="alert alert-success" role="alert">
+                {{message}}
+            </div>
+            {% endif %}
+            {% endfor %}
+            
+            {% for message in messages %}
+            
+            {% if "update_success" in message.tags %}
+            <div class="alert alert-success" role="alert">
+                {{message}}
+            </div>
+            {% endif %}
+            {% endfor %}
+            <!-- end row -->
+          </div>
+          <!-- ========== title-wrapper end ========== -->
+
+          <!-- ========== tables-wrapper start ========== -->
+          <div class="tables-wrapper">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card-style mb-30">
+                 
+                  <h6 class="mb-10">return & refund  Detils</h6>
+                  <h6 class="text-end text-sm mb-20">
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">add return policy<i class="lni lni-add-files"></i></button>
+
+                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">add return details</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <form action ="" method ="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="mb-3 text-start input-style-1">
+                                  <label for="recipient-name" class="col-form-label">Title:</label>
+                                 {{form.title}}
+                                </div>
+                                
+                                <div class="mb-3 text-start input-style-1">
+                                  <label for="message-text" class="col-form-label">Description:</label>
+                                  {{form.media}}
+                                  {{form.content}}
+                          
+                                </div>
+                               
+                                
+                    
+                                <div class="modal-footer">
+                              
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                              </form>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                                         
+                    
+                  </h6>
+                  
+                  <div class="table-wrapper table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th><h6>Title</h6></th>
+                          <th><h6>Description</h6></th>
+                          <th><h6>Action</h6></th>
+                        </tr>
+                        <!-- end table row-->
+                      </thead>
+                      
+                      <tbody>
+                        {% for i in aboutus %}
+                        <tr>
+                          <td class="min-width">
+                            <div class="lead">
+                              <div class="lead-text">
+                                <p>{{i.title}}</p>
+                              </div>
+                              </div>
+                              
+                            </div>
+                          </td>
+                          
+                          <td class="min-width">
+                            <p>{{i.content|truncatechars_html:150|safe }}</p>
+                          </td>
+                          
+                          
+                          
+                          <td>
+                            <div class="action">
+                            <form action ="{% url 'returnpolicy_update_data' i.id %}" method="post" >
+
+                              {% csrf_token %}
+                              <button type ="submit" value ="submit" class="text-warning" ><i>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                </svg></i>
+                              </button>
+                            </form>
+                            <form action ="{% url 'returnpolicy_delete_data' i.id %}" method="post" >
+                              {% csrf_token %}
+                              <button type ="submit" value ="submit" onclick = return confirm("") class="text-danger" >
+                                <i class="lni lni-trash-can"></i>
+                              </button>
+                            </form>
+                            </div>
+                            
+                          </td>
+                        </tr>
+                        
+                        <!-- end table row -->
+                        {% endfor %}
+                      
+                       
+                       
+                       
+                      </tbody>
+
+                    </table>
+                    <!-- end table -->
+                  </div>
+                </div>
+                <!-- end card -->
+              </div>
+              <!-- end col -->
+              <div class="col-lg-12">
+                <div class="card-style mb-30">
+                 
+                  <h6 class="mb-10">Product delivery return refund shipping policy</h6>
+                  
+                  <div class="table-wrapper table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          
+                          <th><h6>Product all policies</h6></th>
+                          <th><h6>Action</h6></th>
+                        </tr>
+                        <!-- end table row-->
+                      </thead>
+                      
+                      <tbody>
+                        {% for i in product_return %}
+                        <tr>
+                          
+                          
+                          
+                          <td class="min-width">
+                            <p>{{i.description|truncatechars_html:150|safe }}</p>
+                          </td>
+                          
+                          
+                          
+                          <td>
+                            <div class="action">
+                            <form action ="{% url 'Productreturn_update_data' i.id %}" method="post" >
+
+                              {% csrf_token %}
+                              <button type ="submit" value ="submit" class="text-warning" ><i>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                </svg></i>
+                              </button>
+                            </form>
+                            
+                            </div>
+                            
+                          </td>
+                        </tr>
+                        
+                        <!-- end table row -->
+                        {% endfor %}
+                      
+                       
+                       
+                       
+                      </tbody>
+
+                    </table>
+                    <!-- end table -->
+                  </div>
+                </div>
+                <!-- end card -->
+              </div>
+            </div>
+            <!-- end row -->
+
+          </div>
+          <!-- ========== tables-wrapper end ========== -->
+        </div>
+        <!-- end container -->
+      </section>
+      <!-- ========== table components end ========== -->
+
+{% include 'dashboards/includes/footer.html' %}
+{% include 'dashboards/includes/scripts.html' %}

@@ -1,0 +1,145 @@
+{% include 'dashboards/includes/header.html' %}
+
+<body>
+  
+{% include 'dashboards/includes/navigation.html' %}
+{% include 'dashboards/includes/sidebar.html' %}
+
+      <!-- ========== table components start ========== -->
+      <section class="table-components">
+        <div class="container-fluid">
+          <!-- ========== title-wrapper start ========== -->
+          <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <div class="title mb-30">
+                  <h2>Blogs</h2>
+                </div>
+              </div>
+              <!-- end col -->
+              <div class="col-md-6">
+                <div class="breadcrumb-wrapper mb-30">
+                  <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item">
+                        <a href="/admins/dashboard">Dashboard</a>
+                      </li>
+                      <li class="breadcrumb-item active" aria-current="page">
+                        manage Blog
+                      </li>
+                    </ol>
+                  </nav>
+                </div>
+              </div>
+              <!-- end col -->
+            </div>
+            <!-- end row -->
+          </div>
+          <!-- ========== title-wrapper end ========== -->
+
+          <!-- ========== tables-wrapper start ========== -->
+          <div class="tables-wrapper">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card-style mb-30">
+                  <h6 class="mb-10">Blog Detils</h6>
+                  <p class="text-sm mb-20">
+                    
+                  </p>
+                  <div class="table-wrapper table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th><h6>Blog Title</h6></th>
+                          <th><h6>Blog Banner </h6></th>
+                          <th><h6>Blog first Image</h6></th>
+                          <th><h6>Blog second image</h6></th>
+                          <th><h6>Category</h6></th>
+                          <th><h6>Author name</h6></th>
+                          <th><h6>content</h6></th>
+                          <th><h6>created at</h6></th>
+                          <th><h6>Action</h6></th>
+                        </tr>
+                        <!-- end table row-->
+                      </thead>
+                      
+                      <tbody>
+                        {% for customer in blog %}
+                        <tr>
+                          <td class="min-width">
+                            <div class="lead">
+                              <div class="lead-text">
+                                <p>{{customer.Blog_title}}</p>
+                              </div>
+                              </div>
+                              
+                            </div>
+                          </td>
+                          <td class="min-width">
+                            <div class="lead">
+                              <div class="lead-text">
+                                <p><img src="/media/{{customer.Blog_banner_Image}}" width="100" height="auto"/></p>
+                              </div>
+                              </div>
+                              
+                            </div>
+                          </td>
+                          <td class="min-width">
+                            <p><img src="/media/{{customer.Blog_first_Image}}"  width="100" height="auto"/></p>
+                          </td>
+                          <td class="min-width">
+                            <p><img src="/media/{{customer.Blog_second_Image}}"  width="100" height="auto"/></p>
+                          </td>
+                          <td class="min-width">
+                            <p>{{customer.category}}</p>
+                          </td>
+                          <td class="min-width">
+                            <p>{{customer.author}}</p>
+                          </td>
+                          <td class="min-width">
+                            <p>{{customer.content|safe}}</p>
+                          </td>
+                           <td class="min-width">
+                            <p>{{customer.created_at}}</p>
+                          </td>
+                         
+                          
+                          <td>
+                            <div class="action">
+                            <form action ="{% url 'blog_delete_data' customer.id %}" method="post" >
+                              {% csrf_token %}
+                              <button type ="submit" onclick="return confirm('are you want to delete?')"  value ="submit" class="text-danger" >
+                                <i class="lni lni-trash-can"></i>
+                              </button>
+                            </form>
+                            </div>
+                            
+                          </td>
+                        </tr>
+                        <!-- end table row -->
+                        {% endfor %}
+                      
+                       
+                       
+                       
+                      </tbody>
+
+                    </table>
+                    <!-- end table -->
+                  </div>
+                </div>
+                <!-- end card -->
+              </div>
+              <!-- end col -->
+            </div>
+            <!-- end row -->
+
+          </div>
+          <!-- ========== tables-wrapper end ========== -->
+        </div>
+        <!-- end container -->
+      </section>
+      <!-- ========== table components end ========== -->
+
+{% include 'dashboards/includes/footer.html' %}
+{% include 'dashboards/includes/scripts.html' %}

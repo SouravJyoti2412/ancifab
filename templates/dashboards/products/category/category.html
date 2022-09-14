@@ -1,0 +1,165 @@
+{% include 'dashboards/includes/header.html' %}
+<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    {% include 'dashboards/includes/sidebar.html' %}
+    <!-- ======== main-wrapper start =========== -->
+    {% include 'dashboards/includes/navigation.html' %}
+{% load placeholder %}
+      <!-- ========== table components start ========== -->
+      <section class="table-components">
+        <div class="container-fluid">
+          {% for message in messages %}
+                    
+                    {% if "upload_unsuccess" in message.tags %}
+                    <div class="alert alert-danger" role="alert">
+                        {{message}}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% for message in messages %}
+                    
+                    {% if "upload_success" in message.tags %}
+                    <div class="alert alert-success" role="alert">
+                        {{message}}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+          <!-- ========== title-wrapper start ========== -->
+          <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <div class="title mb-30">
+                  <h2>Add Product Category</h2>
+                </div>
+              </div>
+              <!-- end col -->
+              
+        <div>
+          
+     
+           <div class="form-elements-wrapper">
+             <div class="row">
+               <div class="col-lg-6">
+                
+                 <!-- input style start -->
+                 <div class="card-style mb-30">
+                   <h6 class="mb-25 text-center">Category Fields</h6>
+                   <form method="post" action ="" enctype="multipart/form-data">
+                    {% csrf_token %}
+                   <div class="input-style-1">
+                    <label class="form-label required">Main category</label>
+                    {{form.maincategory|classes:'form-control'}}
+                    <br>
+                    <small class="test-danger"></small>
+                  </div>
+                   <div class="input-style-1">
+                     <label>Category Name</label>
+                     {{form.Category_name|placeholder:'Enter category name'}}
+                   </div>
+                   <div class="input-style-3">
+                     <button type="submit" id ="submit" class="btn btn-primary">save</button>
+                   </div>
+                </form>
+              </div>
+              </div>
+
+              <!-- end col -->
+              <!-- end col -->
+              <div class="col-lg-6">
+                <div class="card-style mb-30">
+                  <h6 class="mb-10 text-center">category data</h6>
+                  
+                  <div class="table-wrapper table-responsive">
+                    <table class="table striped-table">
+                      <thead>
+                        <tr>
+                         
+                          <th><h6>Maincategoy name</h6></th>
+                          <th><h6>Category Name</h6></th>
+                          <th><h6>Action</h6></th>
+                        </tr>
+                        <!-- end table row-->
+                      </thead>
+                      <tbody>
+                        {% for i in category%}
+                        <tr>
+                          <td>
+                            <p>{{i.maincategory}}</p>
+                          </td>
+                          <td>
+                            <p>{{i.Category_name}}</p>
+                          </td>
+                          <td>
+                          <div class="action">
+                            <form action="{% url 'category_update' i.Sno %}" method="post">
+                              {% csrf_token %}
+                              <button class="text-warning">
+                                <i>
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                  </svg>
+                                </i>
+                              </button>
+                            </form>
+                            
+                            <form action="{% url 'category_delete' i.Sno %}" method="post">
+                              {% csrf_token %}
+                              <button class="text-danger"onclick="return confirm('Are You Sure?');">
+                                <i class="lni lni-trash-can"></i>
+                              </button>
+                            </form>
+                          </div>
+                          </td>
+                        </tr>
+                        {% endfor %}
+                        <!-- end table row -->
+                        
+                        
+                      </tbody>
+                    </table>
+                    <!-- end table -->
+                  </div>
+                </div>
+            </div>
+            <!-- end row -->
+          </div>
+          <!-- ========== tables-wrapper end ========== -->
+        </div>
+        <!-- end container -->
+      </section>
+      <!-- ========== table components end ========== -->
+
+      <!-- ========== footer start =========== -->
+         <!-- ========== table components end ========== -->
+    {% include 'dashboards/includes/footer.html'%}
+    <!-- ========= All Javascript files linkup ======== -->
+  
+    </main>
+   
+    {% include 'dashboards/includes/scripts.html' %}
+  </body>
+</html>
+ <script>
+  jQuery(window).on("load", function(){
+    optText = 'Maincategory';
+    optValue = 'selected';
+    //title = ""
+    $('#id_maincategory').prepend(`<option value ${optValue}>${optText}</option>`);
+    //$("#id_maincategory option[value=" + title + "]").hide();
+    //cols = document.getElementById("id_category");
+    //$('#id_maincategory').append(new Option("---------"));
+   // cols.options.add(new Option("Category", "Category"));
+   
+  });
+   {% comment %} $("#id_maincategory").change(function() {   
+    // $("select option[value='Category']").attr("disabled","disabled");
+    
+   $("select option[value = 'saree' ]").prop('disabled',true);
+   //{
+    //$("submit").attr("disabled",true);
+   //}
+    
+
+}); {% endcomment %}
+
+</script>

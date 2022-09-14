@@ -1,0 +1,106 @@
+{% include 'dashboards/includes/header.html' %}
+   
+    {% include 'dashboards/includes/sidebar.html' %}
+    <!-- ======== main-wrapper start =========== -->
+    {% include 'dashboards/includes/navigation.html' %}
+
+      <!-- ========== table components start ========== -->
+      <section class="table-components">
+        <div class="container-fluid">
+          {% comment %} {% for message in messages %}
+                    
+                  {% if "update_unsuccess" in message.tags %}
+                  <div class="alert alert-danger" role="alert">
+                      {{message}}
+                  </div>
+                  {% endif %}
+                  {% endfor %} {% endcomment %}
+          <!-- ========== title-wrapper start ========== -->
+          <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <div class="title mb-30">
+                  <h2>Update social icon</h2>
+                </div>
+              </div>
+              <!-- end col -->
+              
+        <div>
+          <form action ="" method ="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3 text-start input-style-1">
+              <label for="recipient-name" class="col-form-label">Social icon name:</label>
+             {{form.social_icon_name}}
+             
+            <div class="mb-3 text-start input-style-1">
+              <label for="recipient-name" class="col-form-label">Social Icon Image:</label>
+              {{form.social_icon_image}}
+              <span style ="font-size:10px">recommended dimensions: 16 x 16 PX, 10 KB MAX and use tranparent logo</span>
+            </div>
+            <div class="mb-3 text-start input-style-1">
+              <label for="message-text" class="col-form-label">Social Icon Link without http://:</label>
+              {{form.social_icon_link_except_http}}
+             
+            </div>
+            <div class="modal-footer">
+          
+            <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+           
+             </div>
+              </div>
+              <!-- end col -->
+            </div>
+            <!-- end row -->
+          </div>
+          <!-- ========== tables-wrapper end ========== -->
+        </div>
+        <!-- end container -->
+      </section>
+      <!-- ========== table components end ========== -->
+
+      <!-- ========== footer start =========== -->
+      <footer class="footer">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6 order-last order-md-first">
+              <div class="copyright text-center text-md-start">
+                <p class="text-sm">
+                  Designed and Developed by
+                  <a
+                    href="https://plainadmin.com"
+                    rel="nofollow"
+                    target="_blank"
+                  >
+                    PlainAdmin
+                  </a>
+                </p>
+              </div>
+            </div>
+            <!-- end col-->
+            <div class="col-md-6">
+              <div
+                class="
+                  terms
+                  d-flex
+                  justify-content-center justify-content-md-end
+                "
+              >
+                <a href="#0" class="text-sm">Term & Conditions</a>
+                <a href="#0" class="text-sm ml-15">Privacy & Policy</a>
+              </div>
+            </div>
+          </div>
+          <!-- end row -->
+        </div>
+        <!-- end container -->
+      </footer>
+      <!-- ========== footer end =========== -->
+    </main>
+    <!-- ======== main-wrapper end =========== -->
+
+    <!-- ========= All Javascript files linkup ======== -->
+    {% include 'dashboards/includes/scripts.html' %}
+  </body>
+</html>

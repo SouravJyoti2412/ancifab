@@ -1,0 +1,402 @@
+{% extends "bash.html" %}
+{% block content %}
+  
+ {% load static %}
+ {% load cart %}
+
+        <!-- main-area -->
+        <main>
+
+            <!-- breadcrumb-area -->
+            {% for i in checkout_banner %}
+           
+            <section class="breadcrumb-area breadcrumb-bg" data-background="/media/{{i.Banner_Image}}">
+                
+                {% endfor %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="breadcrumb-content">
+                                <h2>Checkout Page</h2>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- breadcrumb-area-end -->
+
+            <!-- checkout-area -->
+            <section class="checkout-area pt-95 pb-95">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-7">
+                            <div class="checkout-wrap">
+                                <div class="checkout-top">
+                                    <h5 class="title">Billing details</h5>
+                                    <a href="/cart" class="back"><i class="fas fa-angle-left"></i> -- Back to Cart</a>
+                                </div>
+                                <form action="/selectpaymentmethod/" class="checkout-form" method = "post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-grp">
+                                                <label for="fName">FIRST NAME <span>*</span></label>
+                                                <input type="text" id="myName"   name ="name" required ="" min ="4" max="30">
+                                                <small class ="text-danger" id = "error_name"></small>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-grp">
+                                                <label for="lName">Last NAME <span>*</span></label>
+                                                <input type="text" id="lastname" name = "lname" required="" min="4" max="30">
+                                                <small class ="text-danger" id = "error_lastname"></small>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-grp">
+                                                <label for="cName">COMPANY NAME <small>(OPTIONAL)</small></label>
+                                                <input type="text" id="cName" name="cname" >
+                                                <small class ="text-danger" id = "error_name"></small>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-grp">
+                                                <label>COUNTRY / REGION <span>*</span></label>
+                                                <select class="custom-select" name = "country">
+                                                    {% comment %} <option value="disabled">Select Country</option> {% endcomment %}
+                                                   
+                                                    <option value="India">India</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-grp">
+                                                <label for="address">STREET ADDRESS <span>*</span></label>
+                                                <input type="text" id="address" name ="address" required="" min = "50" max ="500">
+                                                <small class ="text-danger" id = "error_address"></small>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-grp">
+                                                <label>TOWN / CITY <span>*</span></label>
+                                                <input type="text" id="town" name ="town" required="" min="4" max="50">
+                                                <small class ="text-danger" id = "error_town"></small>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-grp">
+                                                <label>STATE <span>*</span></label>
+                                                <select class="custom-select" name ="state">
+                                             {% comment %} <option class="disabled" value ="disabled">Select State</option> {% endcomment %}
+                                             <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                             <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                             <option value="Assam">Assam</option>
+                                             <option value="Assam">Assam</option>
+                                             <option value="Goa">Goa</option>
+                                             <option value="Gujarat">Gujarat</option>
+                                             <option value="Haryana">Haryana</option>
+                                             <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                             <option value="Jammu&Kashmir">Jammu & Kashmir</option>
+                                             <option value="Karnataka">Karnataka</option>
+                                             <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                             <option value="Maharashtra">Maharashtra</option>
+                                             <option value="Manipur">Manipur</option>
+                                             <option value="Meghalaya">Meghalaya </option>
+                                             <option value="Mizoram ">Mizoram </option>
+                                             <option value="Nagaland">Nagaland</option>
+                                             <option value="Orissa">Orissa</option>
+                                             <option value="Punjab">Punjab</option>
+                                             <option value="Rajasthan">Rajasthan</option>
+                                             <option value="Sikkim">Sikkim</option>
+                                             <option value="Tamil Nadu">Tamil Nadu</option>
+                                             <option value="Tripura ">Tripura </option>
+                                             <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                             <option value="West Bengal">West Bengal</option>
+                                             <option value="Chhattisgarh">Chhattisgarh</option>
+                                             <option value="Uttarakhand">Uttarakhand</option>
+                                             <option value="Jharkhand">Jharkhand </option>
+                                             <option value="Telangana">Telangana</option>
+                                             <option value="Kerala">Kerala</option>
+                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-grp">
+                                                <label for="zip">Pin code<span>*</span></label>
+                                                <input type="number" id="pin" name ="pin" required ="">
+                                                <small class ="text-danger" id = "error_pin"></small>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-grp">
+                                                <label for="phone">Your PHONE <span>*</span></label>
+                                                <input type="number" id="phone" name ="number" required="" >
+                                                <small class ="text-danger" id = "error_phone"></small>
+                                            </div>
+                                        </div>
+                                    <div class="shop-cart-widget">
+                                        <div class="payment-terms">
+                                            <p>The purpose Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                                            dolore</p>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck7" required>
+                                                <label class="custom-control-label" for="customCheck7">I have read and agree to the website terms and conditions</label>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-lg" id ="submit">Place order</button>
+                                        {% comment %} <button class="btn btn-lg">Place order by card</button> {% endcomment %}
+                                    </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-8">
+                            <aside class="checkout-sidebar">
+                                <h6 class="title">Cart Totals</h6>
+                                <div class="shop-cart-widget">
+                                    <form action="#">
+                                        <ul>
+                                            <li class="sub-total"><span>SUBTOTAL</span>₹{{amount}}</li>
+                                            <li class="sub-total"><span>GST {{gst_percentage}}%</span>₹{{gst|floatformat:2}}</li>
+                                           
+                                            <li>
+                                                <span>SHIPPING</span>
+                                                <div class="shop-check-wrap">
+                                                    {% comment %} <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                                        <label class="custom-control-label" for="customCheck1">FLAT RATE: $15</label>
+                                                    </div> {% endcomment %}
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                                        <label class="custom-control-label" for="customCheck2">SHIPPING AMOUNT ₹{{shipping}}</label>
+                                                        
+                                                    </div>
+                                                    
+                                                </div>
+                                            </li>
+                                            {% if  request.session.coupon_code %}
+                                            <li class="coupon"><span>Coupon Discount {{coupon_discount}}%</span>₹{{discount}}</li>
+                                            {% endif %}
+                                            <li class="cart-total-amount"><span>TOTAL</span> <span class="amount">₹{{total|floatformat:2}}</span></li>
+                                        </ul>
+                                        {% comment %} <div class="payment-method-info">
+                                            <div class="paypal-method-flex">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck5">
+                                                    <label class="custom-control-label" for="customCheck5">Cash on delivery</label>
+                                                    <p>Pay with cash upon delivery.</p>
+                                                </div>
+                                            </div>
+                                            <div class="paypal-method-flex">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck6">
+                                                    <label class="custom-control-label" for="customCheck6">Payments on Card</label>
+                                                </div>
+                                                <div class="paypal-logo"><img src="/static/img/images/card.png" alt=""></div>
+                                            </div>
+                                        </div> {% endcomment %}
+                                        
+                                    </form>
+                                </div>
+                            </aside>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- checkout-area-end -->
+
+        </main>
+        <!-- main-area-end -->
+
+        <script>
+            $(document).ready(function(){
+                $flag=1;
+                $("#myName").focusout(function(){
+                    $myname =$("#myName").val();
+                    if($(this).val()==''){
+                        $(this).css("border-color", "#FF0000");
+                            $('#submit').attr('disabled',true);
+                             $("#error_name").text("* You have to fill first name!");
+                    }
+                    else if (($myname.length < 4) || ($myname.length > 25 ))
+                    {   
+                            $(this).css("border-color", "#FF0000");
+                            $('#submit').attr('disabled',true);
+                            $("#error_name").text("*Lenght should Be 4 to 25");
+                    }
+                    else
+                    {
+                        $(this).css("border-color", "#2eb82e");
+                        $('#submit').attr('disabled',false);
+                        $("#error_name").text("");
+        
+                    }
+               });
+                $("#lastname").focusout(function(){
+                    $lname =$("#lastname").val();
+                    if($(this).val()==''){
+                        $(this).css("border-color", "#FF0000");
+                            $('#submit').attr('disabled',true);
+                            $("#error_lastname").text("* You have to fill Last name!");
+                    }
+                    else if (($lname.length < 4) || ($lname.length > 25 ))
+                    {   
+                            $(this).css("border-color", "#FF0000");
+                            $('#submit').attr('disabled',true);
+                            $("#error_lastname").text("*Lenght Should Be 4 to 25");
+                    }
+                    else
+                    {
+                        $(this).css("border-color", "#2eb82e");
+                        $('#submit').attr('disabled',false);
+                        $("#error_lastname").text("");
+                    }
+               });
+               $("#address").focusout(function(){
+                $lname =$("#address").val();
+                if($(this).val()==''){
+                    $(this).css("border-color", "#FF0000");
+                        $('#submit').attr('disabled',true);
+                        $("#error_address").text("* You have to fill address!");
+                }
+                else if (($lname.length < 20) || ($lname.length > 50 ))
+                {   
+                        $(this).css("border-color", "#FF0000");
+                        $('#submit').attr('disabled',true);
+                        $("#error_address").text("*Lenght Should Be 20 to 50");
+                }
+                else
+                {
+                    $(this).css("border-color", "#2eb82e");
+                    $('#submit').attr('disabled',false);
+                    $("#error_address").text("");
+                }
+           });
+           $("#town").focusout(function(){
+            $town =$("#town").val();
+            if($(this).val()==''){
+                $(this).css("border-color", "#FF0000");
+                    $('#submit').attr('disabled',true);
+                    $("#error_town").text("* You have to fill town or city !");
+            }
+            else if (($town.length < 4) || ($town.length > 25 ))
+            {   
+                    $(this).css("border-color", "#FF0000");
+                    $('#submit').attr('disabled',true);
+                    $("#error_town").text("*Lenght Should Be 4 to 25");
+            }
+            else
+            {
+                $(this).css("border-color", "#2eb82e");
+                $('#submit').attr('disabled',false);
+                $("#error_town").text("");
+            }
+       });  
+
+       $("#pin").focusout(function(){
+                    
+        $pin =$("#pin").val();
+        if($(this).val()==''){
+            $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled',true);
+                $("#error_pin").text("* You have to enter pin code !");
+        }
+        
+        else if ($pin.length!=6)
+        {   
+                $(this).css("border-color", "#FF0000");
+                $('#submit').attr('disabled',true);
+                $("#error_pin").text("* Lenght of Number Should Be 6");
+        }
+        else{
+            $(this).css({"border-color":"#2eb82e"});
+            $('#submit').attr('disabled',false);
+            $("#error_pin").text("");
+        }
+
+    });
+
+
+                $("#phone").focusout(function(){
+                    
+                    $pho =$("#phone").val();
+                    if($(this).val()==''){
+                        $(this).css("border-color", "#FF0000");
+                            $('#submit').attr('disabled',true);
+                            $("#error_phone").text("* You have to enter Phone Number!");
+                    }
+                    
+                    else if ($pho.length!=10)
+                    {   
+                            $(this).css("border-color", "#FF0000");
+                            $('#submit').attr('disabled',true);
+                            $("#error_phone").text("* Lenght of Number Should Be Ten");
+                    }
+                    else{
+                        $(this).css({"border-color":"#2eb82e"});
+                        $('#submit').attr('disabled',false);
+                        $("#error_phone").text("");
+                    }
+        
+                });
+                
+                   $( "#submit" ).click(function() {
+                       if($("#myName" ).val()=='')
+                       {
+                        $("#myName").css("border-color", "#FF0000");
+                            $('#submit').attr('disabled',true);
+                             $("#error_name").text("* You have to enter your first name!");
+                    }
+                    if($("#lastname" ).val()=='')
+                       {
+                        $("#lastname").css("border-color", "#FF0000");
+                            $('#submit').attr('disabled',true);
+                             $("#error_lastname").text("* You have to enter your Last name!");
+                    }
+                    
+                       
+                    if($("#phone" ).val()=='')
+                       {
+                        $("#phone").css("border-color", "#FF0000");
+                            $('#submit').attr('disabled',true);
+                             $("#error_phone").text("* You have to enter your Phone Number!");
+                    }
+                    if($("#pin" ).val()=='')
+                       {
+                        $("#pin").css("border-color", "#FF0000");
+                            $('#submit').attr('disabled',true);
+                             $("#error_pin").text("* You have to enter your pin!");
+                    }
+                    if($("#address" ).val()=='')
+                       {
+                        $("#address").css("border-color", "#FF0000");
+                            $('#submit').attr('disabled',true);
+                             $("#error_cpass").text("* You have to enter your address!");
+                    }
+                    if($("#town" ).val()=='')
+                       {
+                        $("#town").css("border-color", "#FF0000");
+                            $('#submit').attr('disabled',true);
+                             $("#error_town").text("* You have to enter your town!");
+                    }
+                    
+                
+                
+                
+                });
+        
+                    
+                
+            });
+         </script>
+     
+         
+       {% endblock  %}

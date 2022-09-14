@@ -1,0 +1,272 @@
+{% include 'dashboards/includes/header.html' %}
+   
+    {% include 'dashboards/includes/sidebar.html' %}
+    <!-- ======== main-wrapper start =========== -->
+    {% include 'dashboards/includes/navigation.html' %}
+    <style>
+      .instock{
+        text-transform:uppercase; 
+        font-size:12px ;
+        {% comment %} text-align:right!important; {% endcomment %}
+      }
+    </style>
+      <!-- ========== table components start ========== -->
+<section class="table-components">
+    <div class="container-fluid">
+
+          
+          <!-- ========== messege  devider ========== -->
+          {% for message in messages %}
+                    
+          {% if "Product_update_unsuccess" in message.tags %}
+          <div class="alert alert-danger" role="alert">
+              {{message}}
+          </div>
+          {% endif %}
+          {% endfor %}
+          {% for message in messages %}
+          
+          {% if "Product_update_success" in message.tags %}
+          <div class="alert alert-success" role="alert">
+              {{message}}
+          </div>
+          {% endif %}
+          {% endfor %}
+           <!-- ========== title-wrapper start ========== -->
+          <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <div class="title mb-30">
+                  <h2>Manage Products</h2>
+                </div>
+              </div>
+              <!-- end col -->
+              
+        <div>
+          
+          
+     
+           <div class="form-elements-wrapper">
+             <div class="row">
+              
+                <div class="col-sm-3">
+                  <div class="card card-style mb-30 pb-5">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">All Products</h5>
+            
+                      <a href="#" class="btn btn-warning mt-4">{{allproductcount}}</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="card card-style mb-30 pb-5">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">Active Products</h5>
+                      
+                      <a href="#" class="btn btn-warning mt-4">{{active_productcount}}</a>
+                    </div>
+                  </div>
+                </div> 
+                <div class="col-sm-3">
+                  <div class="card card-style mb-30 pb-5 ">
+                    <div class="card-body text-center ">
+                      <h5 class="card-title">Draft or Pending Products</h5>
+                      
+                      <a href="#" class="btn btn-warning mt-2">{{draftProductcount}}</a>
+                    </div>
+                  </div>
+                </div> 
+                <div class="col-sm-3">
+                  <div class="card card-style mb-30 pb-5 ">
+                    <div class="card-body text-center ">
+                      <h5 class="card-title">Trending Product</h5>
+                      
+                      <a href="#" class="btn btn-warning mt-4">{{trendingcount}}</a>
+                    </div>
+                  </div>
+                </div>
+              <!-- end col -->
+              <div class="col-lg-12">
+                <div class="card-style mb-30">
+                  {% comment %} <h6 class="">show  <input type="number" class="" value="5" disabled> entries
+                </h6> {% endcomment %}
+                  <h6 class="mb-10 text-center">Products Manage</h6>
+                  <form action="" class="">
+                    <div class="input-group mb-3" style="margin-left:45rem;">
+                        <input type="text" name ="productname" class="form-control-sm" placeholder="Search by product name">
+                        <button type="submit" class="input-group-text btn-primary"><i class="lni lni-search me-2"></i></button>
+                    </div>
+                </form>
+                  <div class="table-wrapper table-responsive">
+                    <table class="table striped-table">
+                      <thead>
+                        <tr>
+                          <th><h6>SL No</h6></th>
+                          <th><h6>Product Name</h6></th>
+                          <th><h6>Product category</h6></th>
+                          <th><h6>Product sub ctegory</h6></th>
+                          <th><h6>Price</h6></th>
+                          <th><h6>Stock</h6></th>
+                          <th><h6>Status</h6></th>
+                          <th><h6>Condition</h6></th>
+                          <th><h6>Action</h6></th>
+                        </tr>
+                        <!-- end table row-->
+                      </thead>
+                      <tbody>
+                        {% for i in product %}
+                        <tr>
+                            <td>
+                                <p>{{ forloop.counter }}</p>
+                            </td>
+                            <td>
+                              <p>{{i.name}}</p>
+                            </td> 
+                          <td>
+                                <p>{{i.category}}</p>
+                          </td>  
+                          <td>
+                            <p>{{i.sub_category}}</p>
+                          </td>
+                          <td>
+                            {% if i.discount is False %}
+                            <p>₹{{i.discount_price}}</p>
+                            {% else %}
+                            <p>₹{{i.price}}</p>
+                            {% endif %}
+                          </td>
+                          <td>
+                            <p>{% if i.stock is True %}</p>
+                            <a name="" id="" class="btn btn-success pe-5 instock text-center"  role="button" >In stock</a>
+                            {% else %}
+                            <a name="" id="" class="btn btn-danger text-warning" style="text-transform:uppercase; font-size:12px"   role="button">Out of Stock</a>
+                            {% endif %}
+                          </td>
+                          
+                          
+                          <td>
+                            <p>{% if  i.active  is True %}</p>
+                            <a name="" id="" class="btn btn-success"  role="button">active</a>
+                            {% else %}
+                            <a name="" id="" class="btn btn-warning"  role="button">pending</a>
+                            {% endif %}
+                          </td>
+                          <td>
+                            <p>{% if i.trending is False %}</p>
+                            <a name="" id="" class="btn btn-outline-primary"  role="button">Normal</a>
+                            {% else %}
+                            <a name="" id="" class="btn btn-outline-danger text-dark"  role="button">Trending</a>
+                            {% endif %}
+                          </td>
+                          <td>
+                          <div class="action">
+                            <div class="dropdown" >
+                              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v"></i>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512">
+                                <path d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"/>
+                               </svg>
+                              </button>
+                            
+                              <ul class="dropdown-menu"  aria-labelledby="dropdownMenuLink">
+                                <form action="{% url 'product_update' i.id %}" method="post">
+                                  {% csrf_token %}
+                                  <li><button type="submit" name="" id="" class="btn-light ms-2 dropdown-item" style="font-size:13px"onMouseOver="this.style.color='blue'"
+                                    onMouseOut="this.style.color='black'">edit Product</button></li>
+                                </form>
+                                <li>
+                                  <li><a href="/products/productdetail/{{i.product_slug}}"><button  class="ms-2 dropdown-item"   style="font-size:13px" onMouseOver="this.style.color='blue'"
+                                    onMouseOut="this.style.color='black'">View product on frontend</button></a></li>
+                                  {% comment %} <a class="dropdown-item" href="/products/productdetail/{{i.product_slug}}">View product on frontend</a></li> {% endcomment %}
+                                {% if  i.active  is True %}
+                                <form action="{% url 'product_pending' i.id %}" method="post">
+                                  {% csrf_token %}
+                                <li><button type="submit" name="" id="" class="ms-2 dropdown-item"   style="font-size:13px" onMouseOver="this.style.color='blue'"
+                                  onMouseOut="this.style.color='black'">mark as pending</button></li>
+                                </form>
+                                {% else %}
+
+                                <form action="{% url 'product_active' i.id %}" method="post">
+                                  {% csrf_token %}
+                                <li><button type="submit" name="" id="" class=" ms-2 dropdown-item" style="font-size:13px" onMouseOver="this.style.color='blue'"
+                                  onMouseOut="this.style.color='black'">mark as active</button></li>
+                                </form>
+                                {% endif %}
+                                <form action="{% url 'product_delete' i.id %}" method="post">
+                                  {% csrf_token %}
+                                <li><button type="submit" name="" id="" class="ms-2 text-danger dropdown-item"  onclick="return confirm('are you want to delete?')"  style="font-size:13px">Delete Product</button></li>
+                                </form>
+                                {% if  i.stock  is True %}
+                                <form action="{% url 'product_out_of_stock' i.id %}" method="post">
+                                  {% csrf_token %}
+                                <li><button type="submit" name="" id="" class="ms-2 dropdown-item" style="font-size:13px"onMouseOver="this.style.color='blue'"
+                                  onMouseOut="this.style.color='black'">mark as out of stock</button></li>
+                                </form>
+                                {% else %}
+                                <form action="{% url 'product_in_stock' i.id %}" method="post">
+                                  {% csrf_token %}
+                                <li><button type="submit" name="" id="" class="ms-2 dropdown-item" style="font-size:13px" onMouseOver="this.style.color='blue',this.style.backgroundColor='Light grey'"
+                                  onMouseOut="this.style.color='black'">mark as in stock</button></li>
+                                </form>
+                                {% endif %}
+                                {% if  i.trending  is False %}
+                                <form action="{% url 'mark_as_trending' i.id %}" method="post">
+                                  {% csrf_token %}
+                                <li><button type="submit" name="" id="" class="ms-2 dropdown-item" style="font-size:13px"onMouseOver="this.style.color='blue'"
+                                  onMouseOut="this.style.color='black'">mark as trending</button></li>
+                                </form>
+                                {% else %}
+                                <form action="{% url 'mark_as_normal' i.id %}" method="post">
+                                  {% csrf_token %}
+                                <li><button type="submit" name="" id="" class="ms-2 dropdown-item" style="font-size:13px" onMouseOver="this.style.color='blue',this.style.backgroundColor='Light grey'"
+                                  onMouseOut="this.style.color='black'">mark as in normal</button></li>
+                                </form>
+                                {% endif %}
+                              </ul>
+                            </div>
+
+                          </div>
+                         
+                        </tr>
+                        {% endfor %}
+                        <!-- end table row -->
+                        
+                        
+                      </tbody>
+                    </table>
+                    <!-- end table -->
+                  </div>
+                </div>
+                <!-- end card -->
+              </div>
+      </div>
+            <!-- end row -->
+            <nav aria-label="Page navigation example" class="">
+              <ul class="pagination">
+                {% if product.has_previous %}
+                <li class="page-item"><a class="page-link" href="/admins/product_manage/?page={{product.previous_page_number}}">Previous</a></li>
+                {% endif %}
+                 {% for n in allpages %} 
+                <li class="page-item"><a class="page-link" href="/admins/product_manage/?page={{n}}">{{n}}</a></li>
+                {% endfor %} 
+                {% if product.has_next %}
+                <li class="page-item"><a class="page-link" href="/admins/product_manage/?page={{product.next_page_number}}">Next</a></li>
+                {% comment %} {% if product.has_next is none %}
+
+                <li class="page-item"><a class="page-link" href="/admins/product_manage/?page={{lastpage}}">Last</a></li>
+                   {% endif %} {% endcomment %}
+                {% endif %}
+              </ul>
+            </nav>
+    </div>
+          <!-- ========== tables-wrapper end ========== -->
+  </div>
+        
+        <!-- end container -->
+</section>
+      <!-- ========== table components end ========== -->
+    {% include 'dashboards/includes/footer.html'%}
+    <!-- ========= All Javascript files linkup ======== -->
+    {% include 'dashboards/includes/scripts.html' %}
+  </body>
+</html>

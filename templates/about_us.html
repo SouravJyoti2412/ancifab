@@ -1,0 +1,89 @@
+{% extends 'bash.html' %}
+{% block content %}
+{% load static %}
+<main>
+
+    <!-- breadcrumb-area -->
+    {% for i in about_banner %}
+      
+    
+    <section class="breadcrumb-area breadcrumb-bg" data-background="/media/{{i.Banner_Image}}">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-content visible">
+                        <h2>About Our Story</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/" title="Home">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">About Us</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endfor %}
+    <!-- breadcrumb-area-end -->
+
+    <!-- choose-area -->
+    {% for i in about_head_main   %}
+    <section class="choose-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="choose-wrap">
+                        <div class="section-title title-style-three mb-30">
+                            
+                            <h1 class="title">
+                                
+                                   {{i.title}}
+                                
+                            </h1>
+                            <span class="sub-title">{{i.sub_title}}</span>
+                        </div>
+                        <div class="choose-content text-justify">
+                            <p>{{i.content|safe}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="choose-bg col-6" data-background="/media/{{i.side_image}}" style ="background-repeat: no-repeat;" alt="Ancifab" >
+                     <data-background="/media/{{i.side_image}}" alt="Ancifab" >
+                    
+                </div>
+            </div>
+           
+        </div>
+        
+    </section>
+    {% endfor %}
+    <!-- choose-area-end -->
+
+    <!-- newsletter-area -->
+    <section class="newsletter-area pt-100 pb-100 newsletter-bg newsletter-style-two text-justify mt-25">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    {% for i in about_head %} 
+                    <div class="newsletter-bg newsletter-style-two text-justify mt-25" data-background="/static/img/images/newsletter_bg02.jpg" alt="Ancifab">
+                        <div class="newsletter-title mb-25">
+                            <h2 class="title"> {{i.content_title}}</h2>
+                        </div>
+                        <p>{{i.content_des|safe}}</p>
+                    </div>
+                   {% endfor %}
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+   
+    <!-- newsletter-area-end -->
+
+</main>
+<!-- main-area-end -->
+ <!-- main-end -->
+
+{% endblock  %}

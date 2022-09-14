@@ -1,0 +1,167 @@
+{% include 'dashboards/includes/header.html' %}
+   
+    {% include 'dashboards/includes/sidebar.html' %}
+    <!-- ======== main-wrapper start =========== -->
+    {% include 'dashboards/includes/navigation.html' %}
+    <style>
+      .instock{
+        text-transform:uppercase; 
+        font-size:12px ;
+        {% comment %} text-align:right!important; {% endcomment %}
+      }
+    </style>
+      <!-- ========== table components start ========== -->
+<section class="table-components">
+    <div class="container-fluid">
+
+          
+          <!-- ========== messege  devider ========== -->
+          {% for message in messages %}
+                    
+          {% if "Product_update_unsuccess" in message.tags %}
+          <div class="alert alert-danger" role="alert">
+              {{message}}
+          </div>
+          {% endif %}
+          {% endfor %}
+          {% for message in messages %}
+          
+          {% if "Product_update_success" in message.tags %}
+          <div class="alert alert-success" role="alert">
+              {{message}}
+          </div>
+          {% endif %}
+          {% endfor %}
+           <!-- ========== title-wrapper start ========== -->
+          <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <div class="title mb-30">
+                  <h2>recived orders</h2>
+                </div>
+              </div>
+              <!-- end col -->
+              
+        <div>
+          
+          
+     
+           <div class="form-elements-wrapper">
+             <div class="row">
+              
+                
+              <!-- end col -->
+              <div class="col-lg-12">
+                <div class="card-style mb-30">
+                  {% comment %} <h6 class="">show  <input type="number" class="" value="5" disabled> entries
+                </h6> {% endcomment %}
+                  <h6 class="mb-10 text-center">Recived Orders</h6>
+                  
+                  <div class="table-wrapper table-responsive">
+                    <table class="table striped-table">
+                      <thead>
+                        <tr>
+                          <th><h6>SL No</h6></th>
+                          <th><h6>Name</h6></th>
+                          <th><h6>email id</h6></th>
+                          <th><h6>how many time try forget pass</h6></th>
+                          
+                          <th><h6>Status</h6></th>
+                        </tr>
+                        <!-- end table row-->
+                      </thead>
+                      <tbody>
+                        {% for i in forgetpass %}
+                        <tr>
+                            <td>
+                                <p>{{ forloop.counter }}</p>
+                            </td>
+                             
+                          <td>
+                            <p>{{i.firstname}}  {{i.lastname}} </p>
+                          </td>
+                          <td>
+                            
+                            
+                            <p> {{i.email_id}}
+                            </p>
+                          </td>
+                          <td>
+                            <p>
+                            {{i.forgetpass}}
+                          </p>
+                            
+                          </td>
+                          <td>
+                            <p>{% if i.block is True %}</p>
+                            <form action="{% url 'forget_password_unblock' i.id %}" method="post">
+                              {% csrf_token %}
+                              <button type="submit" name="" id="" onclick="return confirm('Are You Sure?');" class="status-btn close-btn" >Block</button>
+                            </form>
+                              {% else %}
+                            <form action="{% url 'forget_password_block' i.id %}" method="post">
+                              {% csrf_token %}
+                              <button type="submit" name="" id="" onclick="return confirm('Are You Sure?');" class="status-btn success-btn" >unblock</button>
+                          </form>
+                            {% endif %}
+                          </td>
+                          
+                          
+                          {% comment %} <td>
+                            {{i.payment_mood}}
+                          </td>
+                          <td>
+                            {% if i.Orderplaced is False %}
+                            <form action="{% url 'order_placed' i.id %}" method="post">
+                              {% csrf_token %}
+                              <button type="submit" name="" id="" class="status-btn info-btn" >Pending</button>
+                            </form>
+                            {% else %}
+                            <button type="button" name="" id="" class="status-btn active-btn" >Approve</button>
+                            {% endif %}
+                          </td>
+                           {% endcomment %}
+                         
+                        </tr>
+                        {% endfor %}
+                        <!-- end table row -->
+                        
+                        
+                      </tbody>
+                    </table>
+                    <!-- end table -->
+                  </div>
+                </div>
+                <!-- end card -->
+              </div>
+      </div>
+            <!-- end row -->
+            <nav aria-label="Page navigation example" class="">
+              <ul class="pagination">
+                {% if product.has_previous %}
+                <li class="page-item"><a class="page-link" href="/admins/product_manage/?page={{product.previous_page_number}}">Previous</a></li>
+                {% endif %}
+                 {% for n in allpages %} 
+                <li class="page-item"><a class="page-link" href="/admins/product_manage/?page={{n}}">{{n}}</a></li>
+                {% endfor %} 
+                {% if product.has_next %}
+                <li class="page-item"><a class="page-link" href="/admins/product_manage/?page={{product.next_page_number}}">Next</a></li>
+                {% comment %} {% if product.has_next is none %}
+
+                <li class="page-item"><a class="page-link" href="/admins/product_manage/?page={{lastpage}}">Last</a></li>
+                   {% endif %} {% endcomment %}
+                {% endif %}
+              </ul>
+            </nav>
+    </div>
+          <!-- ========== tables-wrapper end ========== -->
+  </div>
+        
+        <!-- end container -->
+</section>
+      <!-- ========== table components end ========== -->
+    {% include 'dashboards/includes/footer.html'%}
+    <!-- ========= All Javascript files linkup ======== -->
+    {% include 'dashboards/includes/scripts.html' %}
+  </body>
+</html>

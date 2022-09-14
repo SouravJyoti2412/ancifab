@@ -1,0 +1,90 @@
+
+{% extends "bash.html" %}
+{% block content %}
+  {% load static %}
+
+<main>
+    <!-- breadcrumb-area -->
+      <section class="breadcrumb-area breadcrumb-bg" data-background="/static/img/silk-saree.jpg" alt="Ancifab">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="breadcrumb-content">
+                <h2>My Profile</h2>
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/" title="Home">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/profile" title="My Profile">My Profile</a></li>
+                    <li class="breadcrumb-item"><a href="/orderstatus" title="My Profile">My Orders</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Return Order Tracking</li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    <!-- breadcrumb-area-end -->
+    
+    <!-- cart-area -->
+      <div class="cart-area pt-100 pb-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+                    
+            <!-- Payment Message -->
+                    <!-- /Payment Message -->
+    
+             <!-- cart-area -->
+            <div class="cart-area pt-100 pb-100">
+              <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                                                <div class="card">
+                          <div class="card-header section-title title-style-three"><h1 class="title">Order Tracking Status</h1></div>
+                          <div class="card-body">
+                              <div class="card-header">
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                        <h4>Geting within 10 days</h4>
+                                          <hr>
+                                             <h6><i class="far fa-check-square pr-2 text-success"></i>return  Ordered ( {{allorder.date}} )</h6>
+                                              <!-- item shipped start -->
+
+                                            {% if allorder.Pickup_request is True %}
+                                            <h6><i class="far fa-check-square  pr-2 text-success"></i> Pick up accepted </h6>
+                                            {% else %}
+                                              <h6><i class="far fa-square pr-2"></i> Pick up accepted  </h6>
+                                              {% endif %}
+                                                <!-- item shipped closed -->
+                                          <!-- out for delivery start -->
+                                          {% if allorder.Return_Confirm is True %}
+                                            <h6><i class="far fa-check-square  pr-2 text-success"></i> Return Confirmed</h6>
+                                            {% else %}
+                                              <h6><i class="far fa-square pr-2"></i>Return Confirmed</h6>
+                                              {% endif %}
+                                               <!-- out for delivery end -->
+                                               {% if allorder.payment_confirm is True %}
+                                               <h6><i class="far fa-check-square  pr-2 text-success"></i> Payment confirm</h6>
+                                               {% else %}
+                                                 <h6><i class="far fa-square pr-2"></i> Payment confirm</h6>
+                                                 {% endif %}
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- cart-area-end -->
+    
+    </main>
+    <!-- main-area-end -->
+    <!-- footer start -->
+    {% endblock %}

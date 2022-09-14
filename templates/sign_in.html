@@ -1,0 +1,253 @@
+{% extends 'bash.html' %}
+{% block content %}
+{% load static %}
+<!-- profile -->
+<!-- register -->
+<div class="modal" id="profile">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title"><a href="#register">Profile  </a></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+
+        
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+
+</div>
+        <!-- Modal footer -->
+      <div class="modal-footer">
+        
+      </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<style>
+
+.newsletter-area
+{
+    margin-left: 30%;
+    margin-right: 30%;
+}
+.login
+{
+    margin-left: 30%;
+    margin-right: 30%;
+}
+@media only screen and (max-width: 600px) {
+    .newsletter-area{
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+    .login
+    {
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+}
+
+.line {
+    height: 1px;
+    width: 45%;
+    background-color: #E0E0E0;
+    margin-top: 10px
+}
+
+.or {
+    width: 10%;
+    font-weight: bold
+}
+
+.text-sm {
+    font-size: 14px !important
+}
+
+::placeholder {
+    color: #BDBDBD;
+    opacity: 1;
+    font-weight: 300
+}
+
+:-ms-input-placeholder {
+    color: #BDBDBD;
+    font-weight: 300
+}
+
+::-ms-input-placeholder {
+    color: #BDBDBD;
+    font-weight: 300
+}
+
+input,
+textarea {
+    padding: 10px 12px 10px 12px;
+    border: 1px solid lightgrey;
+    border-radius: 2px;
+    margin-bottom: 5px;
+    margin-top: 2px;
+    width: 100%;
+    box-sizing: border-box;
+    color: #2C3E50;
+    font-size: 14px;
+    letter-spacing: 1px
+}
+
+input:focus,
+textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #304FFE;
+    outline-width: 0
+}
+
+button:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    outline-width: 0
+}
+
+a {
+    color: inherit;
+    cursor: pointer
+}
+
+.btn-blue {
+    background-color: #1A237E;
+    width: 150px;
+    color: #fff;
+    border-radius: 2px
+}
+
+.btn-blue:hover {
+    background-color: #000;
+    cursor: pointer
+}
+
+.bg-blue {
+    color: #fff;
+    background-color: #1A237E
+}
+
+@media screen and (max-width: 991px) {
+    .logo {
+        margin-left: 0px
+    }
+
+    .image {
+        width: 300px;
+        height: 220px
+    }
+
+    .border-line {
+        border-right: none
+    }
+
+    .card2 {
+        border-top: 1px solid #EEEEEE !important;
+        margin: 0px 15px
+    }
+}
+</style>
+
+   <!-- main-area -->
+        <main>
+
+            <!-- breadcrumb-area -->
+            {% for i in login_banner %}
+              
+            
+            <section class="breadcrumb-area breadcrumb-bg" data-background="/media/{{i.Banner_Image}}" alt="Login">
+                
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="breadcrumb-content visible">
+                                <h2>login</h2>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">login</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {% endfor %}
+            <!-- breadcrumb-area-end -->
+
+
+    <section class="newsletter-area pt-100 pb-100">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            
+                            <div class="newsletter-bg newsletter-style-two text-justify" data-background="/static/img/images/newsletter_bg02.jpg" alt="Login Image">
+                                <div class="newsletter-title mb-25">
+                                    <h1 class="title text-dark text-center">Welcome to Ancifab</h1>
+                                    <h2 class="title text-center">Sign in with!</h2>
+                                </div>
+                    {% for message in messages %}
+                    
+                    {% if "singup_sucess" in message.tags %}
+                    <div class="alert alert-success" role="alert">
+                        {{message}}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% for message in messages %}
+                    
+                    {% if "loginerror" in message.tags %}
+                    <div class="alert alert-danger" role="alert">
+                        {{message}}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% for  message in messages  %}
+                      {% if "sucess_send_pass_email" in message.tags %}
+                      <div class="alert alert-success" role="alert">{{message}}</div>
+                      {% endif %}
+                      {% endfor %}
+                      {% for  message in messages  %}
+                      {% if "update" in message.tags %}
+                      <div class="alert alert-success" role="alert">{{message}}</div>
+                      {% endif %}
+                      {% endfor %}
+                      
+                      
+                                <form action="{% url 'login' %}" method="post">
+                                    {% csrf_token %}                                                                                                                                           <form class="was-validated" action="https://ancifab.com/login-check" method="post">
+                                    <div class="row px-3"> <label class="mb-1">
+                                        <h6 class="mb-0 text-sm">Email Address</h6>
+                                    </label> <input class="mb-4" type="text" name="email" placeholder="Enter a valid email address" required> </div>
+                                    <div class="row px-3"> <label class="mb-1">
+                                            <h6 class="mb-0 text-sm">Password</h6>
+                                        </label> <input type="password" name="pass" placeholder="Enter password" required> </div>
+                                    <div class="row px-3 mb-4">
+                                        <div class="custom-control custom-checkbox custom-control-inline"> <input id="chk1" type="checkbox" name="chk" class="custom-control-input"> <label for="chk1" class="custom-control-label text-sm">Remember me</label> </div> <a href="/forget-password" class="ml-auto mb-0 text-sm">Forgot Password?</a>
+                                    </div>
+                                    <div class="row mb-3 px-3"> <button type="submit" class="btn btn-blue text-center">Login</button> </div>
+                                </form>
+                                <div class="row mb-4 px-3"> <medium class="font-weight-bold">Don't have an account? <a href="/register" class="text-danger ">Register</a></medium> </div>
+
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- footer-area -->
+        {% endblock  %}

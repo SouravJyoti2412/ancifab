@@ -1,0 +1,261 @@
+{% extends "bash.html" %}
+{% block content %}
+  
+ {% load static %}
+ {% load cart %}
+
+        <!-- main-area -->
+        <main>
+
+            <!-- breadcrumb-area -->
+            {% for i in cart_banner %}
+              
+            
+            <section class="breadcrumb-area breadcrumb-bg" data-background="/media/{{i.Banner_Image}}">
+                {% endfor %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="breadcrumb-content">
+                                <h2>Cart Page</h2>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- breadcrumb-area-end -->
+              {% comment %} {% if  {{products}}  %}
+
+                <p>You have no product to cart</p>
+
+            {% else %} {% endcomment %}
+            <!-- cart-area -->
+           
+            <div class="cart-area pt-100 pb-100">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="cart-wrapper">
+                                <div class="table-responsive">
+                                    <table class="table mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th class="product-thumbnail">Product Image</th>
+                                                <th class="product-name">Product</th>
+                                                <th class="product-price">Price</th>
+                                                <th class="product-quantity">QUANTITY</th>
+                                                <th class="product-subtotal">SUBTOTAL</th>
+                                                <th class="product-delete">ACTION</th>
+                                            </tr>
+                                        </thead>
+                                        {% for i  in cart %}
+                                        <tbody>
+                                            <tr>
+                                                <td class="product-thumbnail"><a href="/products/productdetail/{{i.cartProduct.product_slug}}"><img src="/media/{{i.cartProduct.Thrumnil}}" alt=""></a></td>
+                                                <td class="product-name">
+                                                    <h4><a href="/products/productdetail/{{i.cartProduct.product_slug}}">{{i.cartProduct.name}}</a></h4>
+                                                </td>
+                                                {% if i.cartProduct.discount is False %}
+                                                <td class="product-price">₹​{{i.cartProduct.discount_price}}</td>
+                                                {% else %}
+                                                <td class="product-price">₹​{{i.cartProduct.price}}</td>
+                                                {% endif %}
+                                                <td class="product-quantity">
+                                                    <div class="">
+                                                            {% comment %} <span  id = "quantity" ><input type="text" name=""   value="{{i.quantity }}" readonly=""> </span> {% endcomment %}
+                                                             
+                                                            {% comment %} <div class="qtybutton-box">
+                                                                 <span class="plus" pid="{{i.cartProduct.id}}"><i class="fas fa-plus"></i></span>
+                                                                <span  id = "quantity" class= "quanty">{{i.quantity }}</span>    
+
+                                                                <span class="minus dis" pid="{{i.cartProduct.id}}"><i class="fas fa-minus"></i></span>
+                                                                
+                                                            </div>
+                                                            {% endcomment %}
+                                                            <div class= "plus_minus_quantity">
+                                                                <span class="minus" pid="{{i.cartProduct.id}}" ><i class="fas fa-minus"></i></span>
+                                                                <span><input type="text" name=""value="{{i.quantity }}" class="quantity" readonly=""></span>
+                                                                <span class="plus" pid="{{i.cartProduct.id}}"><i class="fas fa-plus"></i></span> 
+                                                                
+    
+    
+                                                            </div> 
+
+
+
+                                                       
+                                                       
+                                                    </div>
+                                                </td>
+                                                <td class="product-subtotal">₹​<span id = "amount">{{amount}}</span></td>
+                                                <td class="product-delete">
+                                                    <form action="  {% url 'cart_delete' i.id %}  " method ="post">
+                                                        {% csrf_token %}
+
+                                                    <button class="text-danger" type="submit">
+                                                        <i class="flaticon-trash"></i>
+                                                    </button>
+                                                </form>
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                                <div class="shop-cart-bottom mt-20">
+                                    <div class="cart-coupon">
+                                        
+                                        {% if not  request.session.coupon_code %}
+                                        <form action="{% url 'coupon_apply'  %}" method= "post">
+                                            {% csrf_token %}
+                                            <input type="text" name = "coupon" required ="" placeholder="Enter Coupon Code...">
+                                            <button class="btn" type="submit" >Apply Coupon</button>
+
+                                        </form>
+                                        {% for message in messages %}
+                    
+                                  {% if "invalid_coupon" in message.tags %}
+                                    
+                                   <span style="color:red">{{message}}</span>
+                                   
+                                {% endif %}
+                                {% endfor %} 
+
+                                        {% else %}
+                                       
+                                        <form action="{% url 'remove_coupon'  %}" method= "post">
+                                            {% csrf_token %}
+                                            <input type="text" name ="coupon" style="color:green; font-weight:bold;" value =" {{request.session.coupon_code}}" readonly >
+                                            <button class="btn" type="submit" >remove Coupon</button>
+
+                                        </form>
+                                        {% for message in messages %}
+                    
+                                  {% if "valid_coupon" in message.tags %}
+                                    
+                                   <span style="color:green">{{message}}</span>
+                                   
+                                {% endif %}
+                                {% endfor %} 
+                                        {% endif %}      
+                                    </div>
+                                    {% comment %} <div class="continue-shopping">
+                                        <a href="shop-sidebar.html" class="btn">update shopping</a>
+                                    </div> {% endcomment %}
+                                </div>
+                                
+                                
+                            </div>
+                            <div class="cart-total pt-95">
+                                <h3 class="title">CART TOTALS</h3>
+                                <div class="shop-cart-widget">
+                                    <form action="#">
+                                        <ul>
+                                            
+                                             <li class="sub-total"><span>SUBTOTAL</span>₹<span id = "amount">{{amount}}</span></li>
+                                            <li class="sub-total"><span>GST {{gst_percentage}}%</span>   ₹<span id ="gst">{{gst |floatformat:2}}</span></li>
+
+                                            <li>
+                                                <span>SHIPPING</span>
+                                                <div class="shop-check-wrap">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <label class="custom-control-label">DELIVERY CHARGE ₹<span id = "shipping_amount">{{shipping}}</span></label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            {% if  request.session.coupon_code %}
+                                            <li class="coupon"><span>COUPON {{coupon_discount}}%</span>₹<span id = "discount">{{discount|floatformat:2}}</span></li>
+                                            {% endif %}
+                                            
+                                            <li class="cart-total-amount"><span>TOTAL</span> ₹<span id="totalamount">{{total|floatformat:2}}</span></li>
+                                        </ul>
+                                        <a href="/checkout" class="btn">PROCEED TO CHECKOUT</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- cart-area-end -->
+            {% comment %} {% endif %} {% endcomment %}
+        </main>
+        <!-- main-area-end -->
+
+<script>
+$('.plus').click(function(){
+    console.log("plus clicked")
+ var id = $(this).attr("pid").toString();
+ var eml = this.parentNode.children[1]
+ 
+ //console.log(id)
+ $.ajax({
+    type: "GET",
+    url :"/plus_cart",
+    data:
+    {
+        product_id: id
+    },
+     success: function (data){
+        //console.log(data);
+       // console.log("success")
+       eml.innerText = data.quantity
+     // document.getElementById("quantity").innerText =data.quantity
+      document.getElementById("amount").innerText = data.amount
+      document.getElementById("totalamount").innerText = data.totalamount
+      document.getElementById("gst").innerText = data.gst 
+      document.getElementById("shipping_amount").innerText = data.shipping_amount
+      document.getElementById("discount").innerText = data.discount
+
+    },
+ })
+});
+
+    $('.minus').click(function(){
+        console.log("minus clicked")
+     var id = $(this).attr("pid").toString();
+     var eml = this.parentNode.children[1]
+     
+     //console.log(id)
+     $.ajax({
+        type: "GET",
+        url :"/minus_cart",
+        data:
+        {
+            product_id: id
+        },
+         success: function (data){
+            //console.log(data);
+           // console.log("success")
+           eml.innerText = data.quantity
+         // document.getElementById("quantity").innerText =data.quantity
+          document.getElementById("amount").innerText = data.amount
+          document.getElementById("totalamount").innerText = data.totalamount
+          document.getElementById("gst").innerText = data.gst 
+          document.getElementById("shipping_amount").innerText = data.shipping_amount
+          document.getElementById("discount").innerText = data.discount
+         // if (data.quantity <1){
+        //    $('.minus',this).attr('disabled', 'disabled');
+         //   console.log("minus button disabled now")
+           
+          // }
+         //else{
+           // $('.minus',this).attr('disabled', 'disabled');
+        // }
+        },
+     })
+    });
+    
+    
+    
+    
+    </script>
+        {% endblock content %}

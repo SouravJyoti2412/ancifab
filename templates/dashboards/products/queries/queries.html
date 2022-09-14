@@ -1,0 +1,337 @@
+{% include 'dashboards/includes/header.html' %}
+   
+    {% include 'dashboards/includes/sidebar.html' %}
+    <!-- ======== main-wrapper start =========== -->
+    {% include 'dashboards/includes/navigation.html' %}
+
+
+    <style>
+      .viewdesign p{
+        background-color:green;
+        padding:8px 10px 8px 10px;
+        color: white !important;
+        border-radius: 5px;
+      }
+      .viewdesign1 p{
+        background-color:rgb(209, 40, 40);
+        padding:8px 10px 8px 10px;
+        color: black !important;
+        border-radius: 5px;
+      }
+    </style>
+
+      <!-- ========== table components start ========== -->
+<section class="table-components">
+    <div class="container-fluid">
+          {% for message in messages %}
+                    
+                    {% if "upload_unsuccess" in message.tags %}
+                    <div class="alert alert-danger" role="alert">
+                        {{message}}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% for message in messages %}
+                    
+                    {% if "upload_success" in message.tags %}
+                    <div class="alert alert-success" role="alert">
+                        {{message}}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+          <!-- ========== title-wrapper start ========== -->
+          <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <div class="title mb-30">
+                  <h2>queries</h2>
+                </div>
+              </div>
+              <!-- end col -->
+              
+        <div>
+          <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                  Genreal Queries
+                  
+                    {% if unreadcount is 0 %}
+                    {% else %}
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                   {{unreadcount}}
+                   {% endif %}
+                    <span class="visually-hidden">unread messages</span>
+                  </span>
+                </button>
+              </h2>
+
+                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                   Product Queries
+                   {% if productunreadcount is 0 %}
+                    {% else %}
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                   {{productunreadcount}}
+                   {% endif %}
+                    <span class="visually-hidden">unread messages</span>
+                  </span>
+                  </button>
+                </h2>
+              
+              <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                <div class="accordion-body">
+                  <div class="form-elements-wrapper">
+                    <div class="row">
+                      <div class="col-lg-12">
+                       <div class="card-style mb-30">
+                         <h6 class="mb-10 text-center">Genarel Queries</h6>
+                         
+                         <div class="table-wrapper table-responsive">
+                           <table class="table striped-table">
+                             <thead>
+                               <tr>
+                                
+                                 <th><h6>  name</h6></th>
+                                 <th><h6> email</h6></th>
+                                 <th><h6> Ph number</h6></th>
+                                 <th><h6> subject</h6></th>
+                                 <th><h6> message</h6></th>
+                                 <th><h6>Action</h6></th>
+                               </tr>
+                               <!-- end table row-->
+                             </thead>
+                             <tbody>
+                               {% for i in genarelquery %}
+
+                               <tr>
+                                 <td>
+                                  {% if i.view is False %}
+                                  <strong style="font-size:13px">{{i.name}}</strong>
+                                  {% else %}
+                                   <p>{{i.name}}</p>
+                                   {% endif %}
+                                 </td>
+                                 <td>
+                                  {% if i.view is False %}
+                                  <strong style="font-size:13px">{{i.email}}</strong>
+                                   {% else %}
+                                   <p>{{i.email}}</p>
+                                   {% endif %}
+                                 </td>
+                                 <td>
+                                  {% if i.view is False %}
+                                    <strong style="font-size:13px">{{i.number}}</strong>
+                                    {% else %}
+                                   <p>{{i.number}}</p>
+                                   {% endif %}
+                                 </td>
+                                 <td>
+                                  {% if i.view is False %}
+                                  <strong style="font-size:13px">{{i.subject}}</strong>
+                                  {% else %}
+                                   <p>{{i.subject}}</p>
+                                   {% endif %}
+                                 </td>
+                                 <td>
+                                  {% if i.view is False %}
+                                  <strong style="font-size:13px">{{i.mesege|truncatechars:50}}</strong>
+                                  {% else %}
+                                   <p>{{i.mesege|truncatechars:50}}</p>
+                                   {% endif %}
+                                 </td>
+                                 <td>
+                                 <div class="action">
+                                   <form action="{% url 'generalqueries_edit' i.id%}" method="post">
+                                     {% csrf_token %}
+                                     {% comment %} <button type="button" name="" id="" class="main-btn danger-btn square-btn btn-hover">view</button> {% endcomment %}
+                                     {% comment %} <a name="" type="submit" id="" class="btn btn-primary" href="/admins/general-query/{{i.slug}}" role="button">view</a>  {% endcomment %}
+                                     <button class="btn viewdesign">
+                                      <p>view</p>
+                                    </button>
+                                    </form> 
+                                   
+                                  <form action="{% url 'generalqueries_delete' i.id %}" method="post">
+                                     {% csrf_token %}
+                                     <button class="btn  viewdesign1" onclick="return confirm('are you want to delete?')">
+                                       <p>Delete</p>
+                                     </button>
+                                   </form>  
+                                 </div>
+                                 </td>
+                               </tr>
+                               {% endfor %}
+                               <!-- end table row -->
+                               
+                               
+                             </tbody>
+                           </table>
+                           
+                           <!-- end table -->
+       
+                         </div>
+                        
+                       </div>
+                       <nav aria-label="Page navigation example" class="">
+                         <ul class="pagination">
+                           {% if genarelquery.has_previous %}
+                           <li class="page-item"><a class="page-link" href="/admins/queries/?page={{genarelquery.previous_page_number}}">Previous</a></li>
+                           {% endif %}
+                            {% for n in allpages %} 
+                           <li class="page-item"><a class="page-link" href="/admins/queries/?page={{n}}">{{n}}</a></li>
+                           {% endfor %} 
+                           {% if genarelquery.has_next %}
+                           <li class="page-item"><a class="page-link" href="/admins/queries/?page={{genarelquery.next_page_number}}">Next</a></li>
+                           {% endif %}
+                         </ul>
+                       </nav>
+       
+                       <hr>
+                     </div>
+                
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              
+              <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                <div class="accordion-body">
+                  <div class="form-elements-wrapper">
+                    <div class="row">
+                      
+                     <!-- end col -->
+                     <div class="col-lg-12">
+                       <div class="card-style mb-30">
+                         <h6 class="mb-10 text-center">Products Queries</h6>
+                         
+                         <div class="table-wrapper table-responsive">
+                           <table class="table striped-table">
+                             <thead>
+                               <tr>
+                                
+                                 <th><h6>  name</h6></th>
+                                 <th><h6> email</h6></th>
+                                 <th><h6> Ph number</h6></th>
+                                 <th><h6>productname</h6></th>
+                                 <th><h6>productcode</h6></th>
+                                 <th><h6> message</h6></th>
+                                 <th><h6>Action</h6></th>
+                               </tr>
+                               <!-- end table row-->
+                             </thead>
+                             <tbody>
+                               {% for i in productquery %}
+                               <tr>
+                                 <td>
+                                  {% if i.view is False %}
+                                  <strong style="font-size:13px">{{i.name}}</strong>
+                                  {% else %}
+                                   <p>{{i.name}}</p>
+                                   {% endif %}
+                                 </td>
+                                 <td>
+                                  {% if i.view is False %}
+                                  <strong style="font-size:13px">{{i.email}}</strong>
+                                  {% else %}
+                                   <p>{{i.email}}</p>
+                                   {% endif %}
+                                 </td>
+                                 <td>
+                                  
+                                  {% if i.view is False %}
+                                  <strong style="font-size:13px">{{i.number}}</strong>
+                                  {% else %}
+                                   <p>{{i.number}}</p>
+                                   {% endif %}
+                                 </td>
+                                 <td>
+                                  {% if i.view is False %}
+                                  <strong style="font-size:13px">{{i.productname}}</strong>
+                                  {% else %}
+
+                                   <p>{{i.productname}}</p>
+                                   {% endif %}
+                                 </td>
+                                 <td>
+                                  {% if i.view is False %}
+                                  <strong style="font-size:13px">{{i.productcode}}</strong>
+                                  {% else %}
+                                   <p>{{i.productcode}}</p>
+                                   {% endif %}
+                                 </td>
+                                 <td>
+                                  {% if i.view is False %}
+                                  <strong style="font-size:13px">{{i.mesege}}</strong>
+                                  {% else %}
+                                   <p>{{i.mesege}}</p>
+                                   {% endif %}
+                                 </td>
+                                 
+                                 <td>
+                                 <div class="action">
+                                  <form action="{% url 'productqueries_edit' i.id%}" method="post">
+                                    {% csrf_token %}
+                                    <button class="btn viewdesign">
+                                     <p>view</p>
+                                   </button>
+                                   </form> 
+                                    <form action="{% url 'productqueries_delete' i.id %}" method="post"> 
+                                    {% csrf_token %} 
+                                     <button class="btn viewdesign1"onclick="return confirm('are you want to delete?')">
+                                       <p>Delete</p>
+                                     </button>
+                                   </form>
+                                 </div>
+                                 </td>
+                               </tr>
+                               {% endfor %}
+                               
+                               <!-- end table row -->
+                               
+                               
+                             </tbody>
+                           </table>
+                           <!-- end table -->
+                         </div>
+                       </div>
+                       <!-- end card -->
+                     </div>
+                      <nav aria-label="Page navigation example" class="">
+                       <ul class="pagination">
+                         {% if productquery.has_previous %}
+                         <li class="page-item"><a class="page-link" href="/admins/queries/?pages={{productquery.previous_page_number}}">Previous</a></li>
+                         {% endif %}
+                         {% for j in allpage %} 
+                         <li class="page-item"><a class="page-link" href="/admins/queries/?pages={{j}}">{{j}}</a></li>
+                         {% endfor %}  
+                         {% if productquery.has_next %}
+                         <li class="page-item"><a class="page-link" href="/admins/queries/?pages={{productquery.next_page_number}}">Next</a></li> 
+                         {% comment %} {% if product.has_next is none %}
+         
+                         <li class="page-item"><a class="page-link" href="/admins/product_manage/?page={{lastpage}}">Last</a></li>
+                            {% endif %} {% endcomment %}
+                         {% endif %} 
+                        </ul>
+                     </nav> 
+                   </div>
+                   <!-- end row -->
+                 </div>
+                </div>
+              </div>
+            </div>
+           
+          </div>
+     
+           
+          <!-- ========== tables-wrapper end ========== -->
+  </div>
+        
+        <!-- end container -->
+</section>
+      <!-- ========== table components end ========== -->
+    {% include 'dashboards/includes/footer.html'%}
+    <!-- ========= All Javascript files linkup ======== -->
+    {% include 'dashboards/includes/scripts.html' %}
+  </body>
+</html>

@@ -1,0 +1,213 @@
+{% extends 'bash.html' %}
+{% block content %}
+{% load static %}
+        <!-- main-area -->
+        <main>
+
+            <!-- breadcrumb-area -->
+            {% for i in blog_banner %}
+            
+            <section class="breadcrumb-area breadcrumb-bg" data-background="/media/{{i.Banner_Image}}">
+                {% endfor %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="breadcrumb-content">
+                                <h2>Our Blog</h2>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Blog</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- breadcrumb-area-end -->
+
+            <!-- blog-area -->
+            <section class="blog-area pt-100 pb-100">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            {% for i in blogdetails %}
+                            <div class="blog--post--item text-center">
+                                <div class="blog-post-thumb mb-35">
+                                    <a href="/blog/blog-details"><img src="/media/{{i.Blog_banner_Image}}" alt=""></a>
+                                </div>
+                                <div class="blog-post-content">
+                                    <div class="tag"><a href="#">{{i.category}}</a></div>
+                                    <h3><a href="/blog/blog-details">{{i.Blog_title}}</a></h3>
+                                    <div class="blog-post-meta">
+                                        <ul>
+                                            <li><i class="far fa-user"></i>By <a href="#">{{i.author}}</a></li>
+                                            <li><i class="far fa-calendar-alt"></i> {{i.created_at}}</li>
+                                        </ul>
+                                    </div>
+                                    <p>{{i.content|truncatechars:150|safe}}</p>
+                                    <a href="/blog/blog-details/{{i.title_slug }}">Read More</a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% comment %} <div class="blog--post--item text-center">
+                                <div class="blog-post-thumb mb-35">
+                                    <a href="/blog/blog-details"><img src="/static/img/blog/blog__thumb02.jpg" alt=""></a>
+                                </div>
+                                <div class="blog-post-content">
+                                    <div class="tag"><a href="#">Shopping</a></div>
+                                    <h3><a href="/blog/blog-details">Fashion is a Popular Aesthetic Expression Particular</a></h3>
+                                    <div class="blog-post-meta">
+                                        <ul>
+                                            <li><i class="far fa-user"></i>By <a href="#">Tomas Alexa</a></li>
+                                            <li><i class="far fa-calendar-alt"></i> Mar 10, 2021</li>
+                                        </ul>
+                                    </div>
+                                    <p>The purpose of lorem ipsum is create natural looking block of sentence doesn distract. Letset sheets containing Lorem
+                                    Ipsum passag and more recently with puhing.</p>
+                                    <a href="/blog/blog-details">Read More</a>
+                                </div>
+                            </div> {% endcomment %}
+                            {% comment %} <div class="blog--post--item text-center">
+                                <div class="blog-post-thumb mb-35">
+                                    <a href="/blog/blog-details"><img src="/static/img/blog/blog__thumb03.jpg" alt=""></a>
+                                </div>
+                                <div class="blog-post-content">
+                                    <div class="tag"><a href="#">Shopping</a></div>
+                                    <h3><a href="/blog/blog-details">Model is a Person with a Role Either to Promote</a></h3>
+                                    <div class="blog-post-meta">
+                                        <ul>
+                                            <li><i class="far fa-user"></i>By <a href="#">Tomas Alexa</a></li>
+                                            <li><i class="far fa-calendar-alt"></i> Mar 10, 2021</li>
+                                        </ul>
+                                    </div>
+                                    <p>The purpose of lorem ipsum is create natural looking block of sentence doesn distract. Letset sheets containing Lorem
+                                    Ipsum passag and more recently with puhing.</p>
+                                    <a href="/blog/blog-details">Read More</a>
+                                </div>
+                            </div> {% endcomment %}
+                            {% comment %} <div class="pagination-wrap">
+                                <ul>
+                                    <li class="prev"><a href="#">Prev</a></li>
+                                    <li><a href="#">1</a></li>
+                                    <li class="active"><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">...</a></li>
+                                    <li><a href="#">10</a></li>
+                                    <li class="next"><a href="#">Next</a></li>
+                                </ul>
+                            </div>
+                        </div> {% endcomment %}
+                        {% comment %} <div class="col-lg-4 col-md-8">
+                            <aside class="blog-sidebar">
+                                <div class="widget blog-sidebar-widget mb-45">
+                                    <h5 class="widget-title">ABOUT ME</h5>
+                                    <div class="sidebar-about">
+                                        <div class="thumb"><img src="/static/img/blog/sidebar_about_thumb.jpg" alt=""></div>
+                                        <div class="content">
+                                            <p>The purpose of lorem ipsum is create natural looking block of sentence doesn distract.Letset sheets containing puhing.</p>
+                                            <a href="#">More About Me <i class="fas fa-angle-double-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget blog-sidebar-widget mb-45">
+                                    <div class="oc-newsletter">
+                                        <h4 class="title">NEWSLETTER</h4>
+                                        <p>Fill your email below to subscribe to my newsletter</p>
+                                        <form action="#">
+                                            <input type="email" placeholder="Email...">
+                                            <button class="btn">Subscribe</button>
+                                        </form>
+                                        <div class="oc-social">
+                                            <h4 class="title">FOLLOW US</h4>
+                                            <ul>
+                                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                                <li><a href="#"><i class="fab fa-google"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget blog-sidebar-widget mb-45">
+                                    <h5 class="widget-title">Popular Posts</h5>
+                                    <div class="blog-rc-post">
+                                        <ul>
+                                            <li>
+                                                <div class="rc-post-thumb">
+                                                    <a href="/blog/blog-details"><img src="/static/img/blog/rc_post_thumb01.jpg" alt=""></a>
+                                                </div>
+                                                <div class="rc-post-content">
+                                                    <h5><a href="/blog/blog-details">The Greatest Thing World Belong Excepted</a></h5>
+                                                    <span><i class="far fa-calendar"></i> November 14, 2021</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="rc-post-thumb">
+                                                    <a href="/blog/blog-details"><img src="/static/img/blog/rc_post_thumb02.jpg" alt=""></a>
+                                                </div>
+                                                <div class="rc-post-content">
+                                                    <h5><a href="/blog/blog-details">Fashion is a Popular Aesthetic Expression Particular</a></h5>
+                                                    <span><i class="far fa-calendar"></i> April 14, 2021</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="rc-post-thumb">
+                                                    <a href="/blog/blog-details"><img src="/static/img/blog/rc_post_thumb03.jpg" alt=""></a>
+                                                </div>
+                                                <div class="rc-post-content">
+                                                    <h5><a href="/blog/blog-details">The Greatest Thing World Belong Excepted</a></h5>
+                                                    <span><i class="far fa-calendar"></i> March 28, 2021</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="widget blog-sidebar-widget mb-45">
+                                    <h5 class="widget-title">Categories</h5>
+                                    <div class="blog-cat-list">
+                                        <ul>
+                                            <li><a href="#">Fashion</a>16</li>
+                                            <li><a href="#">Woman</a>17</li>
+                                            <li><a href="#">Lifestyle</a>08</li>
+                                            <li><a href="#">Creative</a>19</li>
+                                            <li><a href="#">Who</a>21</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="widget blog-sidebar-widget mb-45">
+                                    <div class="sidebar-add">
+                                        <a href="#"><img src="/static/img/blog/sidebar_banner.jpg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="widget blog-sidebar-widget">
+                                    <h5 class="widget-title">TAGS POST</h5>
+                                    <div class="blog-sidebar-tag">
+                                        <ul>
+                                            <li><a href="#">Art</a></li>
+                                            <li><a href="#">Branding</a></li>
+                                            <li><a href="#">Colors</a></li>
+                                            <li><a href="#">Who</a></li>
+                                            <li><a href="#">Marketing</a></li>
+                                            <li><a href="#">Creative</a></li>
+                                            <li><a href="#">Business</a></li>
+                                            <li><a href="#">Travel</a></li>
+                                            <li><a href="#">Fashion</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </aside>
+                        </div> {% endcomment %}
+                    </div>
+                </div>
+            </section>
+            <!-- blog-area-end -->
+
+        </main>
+        <!-- main-area-end -->
+
+{% endblock  %}

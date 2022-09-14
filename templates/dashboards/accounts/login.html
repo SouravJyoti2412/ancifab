@@ -1,0 +1,158 @@
+{% include 'dashboards/includes/header.html' %}
+{% load static %}
+<style>
+{% comment %} .middle{
+ margin-left:30rem;
+} {% endcomment %}
+
+</style>
+    <!-- Page content -->
+    {% comment %} <div class="container mt--8 pb-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+          <div class="card bg-secondary shadow border-0">
+            <div class="card-header bg-transparent pb-5">
+              <div class="text-muted text-center mt-2 mb-3">
+                Sign IN
+              </div>
+            </div>
+            <div class="card-body px-lg-5 py-lg-5">
+              <div class="text-center text-muted mb-4">
+
+                {% if msg %}
+                  <p>{{ msg }}</p>
+                {% else %}
+                  <p>
+                    Add your credentials
+                  </p>
+                {% endif %}  
+
+              </div>
+
+              <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="form-group mb-3 ">
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">enter login  username</span>
+                    </div>
+                    {{ form.username }}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Enter login password</span>
+                    </div>
+                    {{ form.password }}
+                  </div>
+                </div>
+                <div class="custom-control custom-control-alternative custom-checkbox">
+                  <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+                  <label class="custom-control-label" for=" customCheckLogin">
+                    <span class="text-muted">Remember me</span>
+                  </label>
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary my-4">Sign in</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-6">
+              <a href="{% url 'register' %}" class="text-light"><small>Register</small></a>
+            </div>
+            <div class="col-6 text-right">
+              <a href="https://appseed.us/support" class="text-light"><small>Get Support</small></a>
+            </div>
+          </div>
+        </div>
+      </div> {% endcomment %}
+    </div>
+
+    <div class="row d-flex align-items-center justify-content-center ">
+
+      {% if msg %}
+      <div class="alert alert-danger" role="alert">
+        {{ msg }}
+      </div>
+     
+      
+    {% endif %}  
+
+    <div class="col-lg-4  mt-5 mb-5 ">
+      <div class="signin-wrapper">
+        <div class="form-wrapper">
+          <h6 class="mb-15  text-center">Admin Login</h6>
+         
+          <form action="#" method="post">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-12">
+                <div class="input-style-1">
+                  <label>username</label>
+                  {{ form.username }}
+                </div>
+              </div>
+              <!-- end col -->
+              <div class="col-12">
+                <div class="input-style-1">
+                  <label>Password</label>
+                  {{form.password}}
+                </div>
+              </div>
+              <!-- end col -->
+              <div class="col-xxl-6 col-lg-12 col-md-6">
+                <div class="form-check checkbox-style mb-30">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id=" customCheckLogin"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="checkbox-remember"
+                  >
+                    Remember me</label
+                  >
+                </div>
+              </div>
+              <!-- end col -->
+              
+              <!-- end col -->
+              <div class="col-12">
+                <div
+                  class="
+                    button-group
+                    d-flex
+                    justify-content-center
+                    flex-wrap
+                  "
+                >
+                  <button
+                    class="
+                      main-btn
+                      primary-btn
+                      btn-hover
+                      w-100
+                      text-center
+                    "
+                  >
+                    Sign In
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- end row -->
+          </form>
+        </div>
+      </div>
+    </div>
+    <div>
+    {% include 'dashboards/includes/footer.html' %}
+<!-- Specific JS goes HERE --> 
+

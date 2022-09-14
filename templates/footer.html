@@ -1,0 +1,140 @@
+<!-- footer-area -->
+<footer class="gray-bg footer-style-two pt-75">
+    <div class="container">
+        <div class="footer-top-wrap">
+            <div class="row">
+                <div class="col-12">
+                    <div class="footer-logo">
+                        {% for i in data.logo %}
+                        <a href="/"><img src="/media/{{i.footerLogo}}"
+                                alt="Ancifab logo"></a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-middle-wrap pt-45 pb-20">
+            <div class="row">
+                <div class="col-lg-3 col-sm-6">
+
+                    <div class="footer-widget mb-50">
+                        <h4 class="fw-title">Quick Links</h4>
+                        <div class="fw-link">
+                            <ul>
+                                <li><a href="/">Home</a></li>
+                                <li><a href="/about">About Us</a></li>
+                                <li><a href="/blog">Blog</a></li>
+                                <li><a href="/contact">Contact</a></li>
+                                
+                            </ul>
+                            <div class="footer-logo1">
+                                {% for i in data.logo %}
+                                <a href="/"><img
+                                        src="/media/{{i.footerLogo}}"
+                                        style="height: 80px;margin-left:-3rem; padding-top: 1rem;"
+                                        alt="Ancifab logo"></a>
+                                        {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget mb-50">
+                        <h4 class="fw-title">Need Help?</h4>
+                        <div class="fw-link">
+                            <ul>
+
+                                <li><a href="/privacy">Privacy Policy</a></li>
+                                <li><a href="/terms">Terms & Conditions</a></li>
+                                <li><a href="/faq">Faq</a></li>
+                                <li><a href="/return-refund">Return and refund policy</a></li>
+                                <li><a href="/admins/login">administation</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget mb-50">
+                        <h4 class="fw-title">Category</h4>
+                        <div class="fw-link">
+                            <ul>
+                                <li><a href="/products">Saree</a></li>
+                                <li><a href="/products">Dress</a></li>
+                                <li><a href="/products">Top</a></li>
+                                <li><a href="/products">Jacket & Shrug</a></li>
+                                <li><a href="/products">Bottoms</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget mb-50">
+                        <h4 class="fw-title">Category</h4>
+                        <div class="fw-link">
+                            <ul>
+                                <li><a href="/products">Skirt</a></li>
+                                <li><a href="/products">Scarf & Dupatta</a></li>
+                                <li><a href="/products">Kurti</a></li>
+                            </ul><br>
+                        </div>
+                        <h4 class="fw-title">FOLLOW US</h4>
+                        <div class="footer-text">
+                            <div class="footer-social">
+                                <ul>{% for i in data.social_icon  %}
+                                    <li><a href="https://{{i.social_icon_link_except_http}}" target="_blank"
+                                            rel="noreferrer"><i class=""><img src="/media/{{i.social_icon_image}}" alt="{{i.social_icon_name}}"style="max-width:16px;max-height:16px;" ></i></a></li>
+                                   {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="copyright-wrap" style="color: #000000;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-9">
+                    <div class="copyright-text">
+                        <p>&copy; 2022 <a href="/">ancifab</a>. All Rights Reserved.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="copyright-text">
+                        <p class="">Site Supported By <a href="#" target="_blank">Azmuth Pvt Ltd</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- footer-area-end -->
+
+
+
+
+
+<!-- JS here -->
+<script src="/static/js/vendor/jquery-3.5.0.min.js"></script>
+<script src="/static/js/popper.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/isotope.pkgd.min.js"></script>
+<script src="/static/js/imagesloaded.pkgd.min.js"></script>
+<script src="/static/js/jquery.magnific-popup.min.js"></script>
+<script src="/static/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="/static/js/bootstrap-datepicker.min.js"></script>
+<script src="/static/js/jquery.nice-select.min.js"></script>
+<script src="/static/js/jquery.countdown.min.js"></script>
+<script src="/static/js/swiper-bundle.min.js"></script>
+<script src="/static/js/jarallax.min.js"></script>
+<script src="/static/js/slick.min.js"></script>
+<script src="/static/js/wow.min.js"></script>
+<script src="/static/js/nav-tool.js"></script>
+<script src="/static/js/plugins.js"></script>
+<script src="/static/js/main.js"></script>
+{% comment %} {% block js %} {% endblock %} {% endcomment %}
+</body>
+
+</html>
